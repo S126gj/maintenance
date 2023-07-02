@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "minio")
+@ConfigurationProperties(prefix = "file.minio")
 public class MinioConfig {
 
     /**

@@ -16,11 +16,15 @@ spring:
         pool:
           max-active: 50
 
-minio:
-  url: http://123.60.49.164:9000
-  accessKey: minioadmin
-  secretKey: minioadmin
-  bucketName: maintenance
+file:
+  # minio 文件上传
+  minio:
+    url: http://123.60.49.164:9000
+    accessKey: minioadmin
+    secretKey: minioadmin
+    bucketName: maintenance
+  # oss 文件上传
+  oss:
 
 # springdoc-openapi
 springdoc:

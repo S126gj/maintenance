@@ -27,7 +27,7 @@ public class MinioServiceImpl implements MinioService {
 
     private final MinioTemplate minioTemplate;
 
-    @Value("${minio.bucketName}")
+    @Value("${file.minio.bucketName}")
     private String DEFAULT_DB;
 
     @Override
