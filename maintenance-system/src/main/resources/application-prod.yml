@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/maintenance?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&stringtype=unspecified
+    username: root
+    password: 11111111
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      #连接超时时间
+      timeout: 8000ms
+      jedis:
+        pool:
+          max-active: 50
+
+minio:
+  url: http://123.60.49.164:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: maintenance
+
+# springdoc-openapi
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan:
+        - com.device.mbg.controller
+        - com.device.system.column.controller
+        - com.device.system.core.controller
+# knife4j
+knife4j:
+  enable: false
+  setting:
+    language: zh_cn
+
+# forest 默认域名配置
+forest:
+  variables:
+    # 可指定多个client
+    apiUrl: http://localhost

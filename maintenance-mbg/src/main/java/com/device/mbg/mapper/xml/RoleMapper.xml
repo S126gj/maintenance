@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.device.mbg.mapper.RoleMapper">
+
+    <select id="getRoleList" resultType="com.device.mbg.domain.entity.Role">
+        select *
+        from sys_role
+        where id in (select role_id from sys_user_role where user_id = #{userId,jdbcType=VARCHAR});
+    </select>
+
+    <select id="queryAll" resultType="com.device.mbg.domain.entity.Role">
+        select r.* from sys_role r
+        where 1 = 1
+        <include refid="selectCondition"/>
+        order by r.gmt_create
+    </select>
+
+    <sql id="selectCondition">
+        <choose>
+            <when test="criteria.beginTime != null ">
+                and r.gmt_create >= #{criteria.beginTime}
+            </when>
+        </choose>
+        <choose>
+            <when test="criteria.endTime != null ">
+                and r.gmt_create &lt;= #{criteria.endTime}
+            </when>
+        </choose>
+        <choose>
+            <when test="criteria.enable != null ">
+                and r.status = #{criteria.enable}
+            </when>
+        </choose>
+        <choose>
+            <when test="criteria.blurry != null and criteria.blurry!='' ">
+                and (
+                r.name like concat('%', #{criteria.blurry}, '%')
+                or r.description like concat('%', #{criteria.blurry}, '%')
+                )
+            </when>
+        </choose>
+    </sql>
+</mapper>

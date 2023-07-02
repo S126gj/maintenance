@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父模块 -->
+    <parent>
+        <groupId>com.device</groupId>
+        <artifactId>maintenance</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.device</groupId>
+    <artifactId>maintenance-system</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>maintenance-system</name>
+    <description>maintenance-system</description>
+
+    <properties>
+
+    </properties>
+
+    <dependencies>
+        <!-- mybatis 模块 -->
+        <dependency>
+            <groupId>com.device</groupId>
+            <artifactId>maintenance-mbg</artifactId>
+        </dependency>
+        <!-- file 文件模块 -->
+        <dependency>
+            <groupId>com.device</groupId>
+            <artifactId>maintenance-file</artifactId>
+        </dependency>
+        <!-- sms 短信模块 -->
+        <dependency>
+            <groupId>com.device</groupId>
+            <artifactId>maintenance-sms</artifactId>
+        </dependency>
+        <!-- xxljob 定时任务模块 -->
+        <dependency>
+            <groupId>com.device</groupId>
+            <artifactId>maintenance-xxljob</artifactId>
+        </dependency>
+        <!--forest-->
+        <dependency>
+            <groupId>com.dtflys.forest</groupId>
+            <artifactId>forest-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <useUniqueVersions>false</useUniqueVersions>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <!-- 主方法类 -->
+                            <mainClass>com.device.MaintenanceSystemApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <configuration>
+                            <executable>true</executable>
+                            <classifier>exec</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 指定编译顺序，否则会出现lombok还没有生成getset方法，mapstruct却已经编译完成，故无法生成转换类 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <!--idea默认只编译src/main/resources下的文件，这里是让它也能编译src/main/java下的xml文件-->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.db</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+</project>

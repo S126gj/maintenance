@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父模块版本 -->
+    <groupId>com.device</groupId>
+    <artifactId>maintenance</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>maintenance</name>
+    <description>maintenance</description>
+
+    <!-- 子模块 -->
+    <modules>
+        <module>maintenance-common</module>
+        <module>maintenance-mbg</module>
+        <module>maintenance-file</module>
+        <module>maintenance-sms</module>
+        <module>maintenance-system</module>
+        <module>maintenance-xxljob</module>
+    </modules>
+
+    <!-- springboot 版本 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.0</version>
+    </parent>
+
+    <!-- 依赖包版本管理 -->
+    <properties>
+        <java.version>17</java.version>
+        <springdoc.version>2.0.0-M3</springdoc.version>
+        <jsr250.version>1.0</jsr250.version>
+        <validation.version>2.0.1.Final</validation.version>
+        <knife4j.version>4.1.0</knife4j.version>
+        <openai.version>1.7.0</openai.version>
+        <redis.version>3.0.6</redis.version>
+        <mysql.version>8.0.31</mysql.version>
+        <druid.version>1.1.20</druid.version>
+        <fastjson.version>2.0.31</fastjson.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <!-- 此解析器版本与mybatis版本对应，请勿修改，否则会出现租户解析sql报错 -->
+        <jsqlparser.version>4.2</jsqlparser.version>
+        <spring.freemarker.version>2.6.6</spring.freemarker.version>
+        <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
+        <minio.version>8.5.2</minio.version>
+        <servlet-api.version>4.0.1</servlet-api.version>
+        <hutool.version>5.8.11</hutool.version>
+        <guava.version>30.1.1-jre</guava.version>
+        <spring-data-common.version>3.0.5</spring-data-common.version>
+        <sa-token.version>1.34.0</sa-token.version>
+        <sa-token-redis.version>1.34.0</sa-token-redis.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <!-- 腾讯sdk: maven仓库中显示的4.0.11是废弃版本，我们已经联系maven官方删除jar包，但maven索引无法清除，请勿使用; -->
+        <tencentcloud-sdk.version>3.1.597</tencentcloud-sdk.version>
+        <rly-sdk.version>1.0.4</rly-sdk.version>
+        <xxljob.version>2.3.1</xxljob.version>
+        <forest.version>1.5.23</forest.version>
+        <maintenance-common.version>1.0-SNAPSHOT</maintenance-common.version>
+        <maintenance-mbg.version>1.0-SNAPSHOT</maintenance-mbg.version>
+        <maintenance-file.version>1.0-SNAPSHOT</maintenance-file.version>
+        <maintenance-sms.version>1.0-SNAPSHOT</maintenance-sms.version>
+        <maintenance-xxljob.version>1.0-SNAPSHOT</maintenance-xxljob.version>
+    </properties>
+
+    <dependencies>
+        <!-- hutool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- 添加 Javax Annotation -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+            <version>${jsr250.version}</version>
+        </dependency>
+        <!-- jsr303 校验 -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${validation.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>${spring-data-common.version}</version>
+        </dependency>
+        <!-- aop 切面 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- common 模块 -->
+            <dependency>
+                <groupId>com.device</groupId>
+                <artifactId>maintenance-common</artifactId>
+                <version>${maintenance-common.version}</version>
+            </dependency>
+            <!-- mybatis 模块 -->
+            <dependency>
+                <groupId>com.device</groupId>
+                <artifactId>maintenance-mbg</artifactId>
+                <version>${maintenance-mbg.version}</version>
+            </dependency>
+            <!-- file 文件模块 -->
+            <dependency>
+                <groupId>com.device</groupId>
+                <artifactId>maintenance-file</artifactId>
+                <version>${maintenance-file.version}</version>
+            </dependency>
+            <!-- sms 短信模块 -->
+            <dependency>
+                <groupId>com.device</groupId>
+                <artifactId>maintenance-sms</artifactId>
+                <version>${maintenance-sms.version}</version>
+            </dependency>
+            <!-- xxljob 定时任务模块 -->
+            <dependency>
+                <groupId>com.device</groupId>
+                <artifactId>maintenance-xxljob</artifactId>
+                <version>${maintenance-xxljob.version}</version>
+            </dependency>
+            <!-- minio -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+            </dependency>
+            <!-- redis -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${redis.version}</version>
+            </dependency>
+            <!-- kenif4j -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+            <!-- openai -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${openai.version}</version>
+            </dependency>
+            <!-- mysql -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!-- druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!--mapStruct依赖-->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- mybatis-plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+                <exclusions>
+                    <!-- 解决jsqlparser 依赖版本冲突 -->
+                    <exclusion>
+                        <artifactId>jsqlparser</artifactId>
+                        <groupId>com.github.jsqlparser</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.github.jsqlparser</groupId>
+                <artifactId>jsqlparser</artifactId>
+                <version>${jsqlparser.version}</version>
+            </dependency>
+            <!-- 模版引擎 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-freemarker</artifactId>
+                <version>${spring.freemarker.version}</version>
+            </dependency>
+            <!-- mybatis 代码生成 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus-generator.version}</version>
+            </dependency>
+            <!-- sa-token -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 Redis （使用jackson序列化方式） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-dao-redis-jackson</artifactId>
+                <version>${sa-token-redis.version}</version>
+            </dependency>
+            <!-- 腾讯云短信sdk -->
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java</artifactId>
+                <version>${tencentcloud-sdk.version}</version>
+            </dependency>
+            <!-- 容联云短信sdk -->
+            <dependency>
+                <groupId>com.cloopen</groupId>
+                <artifactId>java-sms-sdk</artifactId>
+                <version>${rly-sdk.version}</version>
+            </dependency>
+            <!--xxljob-->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxljob.version}</version>
+            </dependency>
+            <!--forest-->
+            <dependency>
+                <groupId>com.dtflys.forest</groupId>
+                <artifactId>forest-spring-boot-starter</artifactId>
+                <version>${forest.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <!--idea默认只编译src/main/resources下的文件，这里是让它也能编译src/main/java下的xml文件-->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.db</include>
+                    <include>**/*.txt</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+</project>
