@@ -37,7 +37,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @Service
-@CacheConfig(cacheNames = "layout")
+@CacheConfig(cacheNames = CacheKey.LAYOUT)
 public class LayoutServiceImpl extends ServiceImpl<LayoutMapper, Layout> implements LayoutService {
 
     private final LayoutMapping layoutMapping;
