@@ -12,16 +12,17 @@ import com.device.common.utils.RedisUtils;
 import com.device.mbg.utils.PageUtil;
 import com.device.system.core.entity.Dict;
 import com.device.system.core.entity.enums.DictEnum;
+import com.device.system.core.entity.enums.DictTypeEnum;
 import com.device.system.core.mapper.DictMapper;
 import com.device.system.core.service.IDictService;
+import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * <p>
@@ -37,6 +38,19 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 
     @Autowired
     private RedisUtils redisUtils;
+
+    @Override
+    public Map<String, List<Map<String, String>>> getDictByType() {
+        Map<String, List<Map<String, String>>> map = new HashMap<>();
+        for (DictTypeEnum typeEnum : DictTypeEnum.values()) {
+            List<Map<String, String>> dictMap = new ArrayList<>();
+            List<DictEnum> dictEnums = DictEnum.getByType(typeEnum);
+            dictEnums.forEach(dict ->
+                dictMap.add(new ImmutableMap.Builder<String, String>().put(dict.getMsg(), dict.name()).build()));
+            map.put(typeEnum.getMsg(), dictMap);
+        }
+        return map;
+    }
 
     @Override
     @Cacheable(key = "#root.target.getKey() + #p0")
@@ -57,8 +71,16 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
     @Override
     public void create(Dict dict) {
         Checker.ifThrow(isRepeat(dict), () -> Errors.BIZ.exception("字典名称重复"));
-        baseMapper.insert(dict);
+        this.saveOrUpdate(dict);
         delCaches(dict.getType());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateStatus(String id, Integer status) {
+        Dict dict = baseMapper.selectById(id);
+        dict.setStatus(status);
+        baseMapper.updateById(dict);
     }
 
     /**

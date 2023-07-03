@@ -1,7 +1,11 @@
 package com.device.system.core.entity.enums;
 
+import com.device.common.exception.Checker;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: Guoji Shen
@@ -9,11 +13,19 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 public enum DictEnum {
-    FAULT_TYPE(0, "故障类型"),
+    FAULT_TYPE(DictTypeEnum.BASE_DICT, "故障类型"),
     ;
 
     @Getter
-    private Integer code;
+    private DictTypeEnum type;
     @Getter
     private String msg;
+
+    public static List<DictEnum> getByType(DictTypeEnum type) {
+        List<DictEnum> dictEnums = new ArrayList<>();
+        for (DictEnum dict : DictEnum.values()) {
+            Checker.ifThen(type.equals(dict.type), then -> dictEnums.add(dict));
+        }
+        return dictEnums;
+    }
 }
