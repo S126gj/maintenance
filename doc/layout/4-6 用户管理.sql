@@ -24,7 +24,7 @@ INSERT INTO `sys_layout_d` VALUES('005001007', '5', @tenant_id, 6, 'statusDesc',
 INSERT INTO `sys_layout` VALUES ('6', @tenant_id, '用户管理详情');
 INSERT INTO `sys_layout_d` VALUES('006001001', '6', @tenant_id, 0, 'username', '用户名', 100, 'input', true, false, 'table', null, null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('006001002', '6', @tenant_id, 1, 'phone', '手机号', 100, 'input', true, false, 'table', null, null, 1, null, true);
-INSERT INTO `sys_layout_d` VALUES('006001003', '6', @tenant_id, 2, 'gender', '性别', 100, 'input', true, false, 'table', null, null, 1, null, true);
+INSERT INTO `sys_layout_d` VALUES('006001003', '6', @tenant_id, 2, 'gender', '性别', 100, 'select', true, false, 'table', null, null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('006001004', '6', @tenant_id, 3, 'idCard', '身份证', 100, 'input', true, false, 'table', null, null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('006001005', '6', @tenant_id, 4, 'realName', '真实姓名', 100, 'input', true, false, 'table', null, null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('006001006', '6', @tenant_id, 5, 'icon', '头像', 100, 'upload', true, false, 'table', null, null, 1, null, true);
