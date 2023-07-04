@@ -19,7 +19,7 @@ CREATE TABLE `sys_layout`
 DROP TABLE IF EXISTS sys_layout_d;
 CREATE TABLE `sys_layout_d`
 (
-    `id`             char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      NOT NULL COMMENT 'id',
+    `id`             char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci    NOT NULL COMMENT 'id',
     `layout_id`      char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL COMMENT '单据id',
     `tenant_id`      char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL COMMENT '租户id',
     `sort`           int                                                            DEFAULT NULL COMMENT '序号',
@@ -47,6 +47,7 @@ CREATE TABLE `tenant`
     `name`         varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '名称',
     `begin_date`   datetime                                                      DEFAULT NULL COMMENT '开始日期',
     `end_date`     datetime                                                      DEFAULT NULL COMMENT '到期日期',
+    `instance_id`  varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  NOT NULL COMMENT '工厂实例id',
     `license`      varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '授权信息',
     `gmt_create`   datetime                                                      DEFAULT NULL COMMENT '创建日期',
     `gmt_modified` datetime                                                      DEFAULT NULL COMMENT '修改日期',
@@ -56,7 +57,7 @@ CREATE TABLE `tenant`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=COMPACT COMMENT='租户表';
 
 INSERT INTO `tenant`
-VALUES (@tenant_id, '测试', '2022-06-28 09:49:05', '2033-06-28 09:49:12', NULL, now(), now());
+VALUES (@tenant_id, '测试', '2022-06-28 09:49:05', '2099-06-28 09:49:12', '123', NULL, now(), now());
 
 DROP TABLE IF EXISTS sys_user;
 CREATE TABLE `sys_user`

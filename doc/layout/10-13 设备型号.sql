@@ -40,6 +40,6 @@ INSERT INTO `sys_layout_d` VALUES('012001013', '12', @tenant_id, 12, 'remark', '
 --  设备型号详情下部 --
 INSERT INTO `sys_layout` VALUES ('13', @tenant_id, '设备型号详情下部');
 INSERT INTO `sys_layout_d` VALUES('013001001', '13', @tenant_id, 0, 'errorCode', '故障代码', 100, 'input', true, false, 'table', null, null, 1, null, true);
-INSERT INTO `sys_layout_d` VALUES('013001002', '13', @tenant_id, 1, 'errorType', '故障类型', 100, 'select', true, false, 'table', null, '/combo/layout/getErrorType', 1, null, true);
+INSERT INTO `sys_layout_d` VALUES('013001002', '13', @tenant_id, 1, 'errorType', '故障类型', 100, 'select', true, false, 'table', '/combo/layout/getErrorType', null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('013001003', '13', @tenant_id, 2, 'errorInfo', '故障信息', 100, 'input', true, false, 'table', null, null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('013001004', '13', @tenant_id, 3, 'errorReason', '故障原因', 100, 'input', true, false, 'table', null, null, 1, null, true);
