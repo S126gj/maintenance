@@ -19,26 +19,25 @@ CREATE TABLE `sys_layout`
 DROP TABLE IF EXISTS sys_layout_d;
 CREATE TABLE `sys_layout_d`
 (
-    `id`        char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'id',
-    `layout_id` char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '单据id',
-    `tenant_id` char(19)
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '租户id',
-  `sort` int DEFAULT NULL COMMENT '序号',
-  `field_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '字段名称',
-  `label` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '显示名称',
-  `width` int DEFAULT '0' COMMENT '显示宽度',
-  `input_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '显示类型 text input dialog select filter date time button money',
-  `visible` bit(1) DEFAULT NULL COMMENT '是否显示',
-  `readonly` bit(1) DEFAULT NULL COMMENT '是否只读',
-  `layout_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '表单类型 table/form',
-  `data_source` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '数据源 作为 select 下拉的数据源 以及 按钮组对象',
-  `validate_rules` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '表单验证',
-  `filterable` bit(1) DEFAULT NULL COMMENT '下拉搜索',
-  `auth_config` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '用户角色表ID',
-  `sortable` bit(1) DEFAULT b'0' COMMENT '是否前端排序',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_id` (`id`) USING BTREE,
-  KEY `idx_layout_id` (`layout_id`) USING BTREE
+    `id`             char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      NOT NULL COMMENT 'id',
+    `layout_id`      char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL COMMENT '单据id',
+    `tenant_id`      char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL COMMENT '租户id',
+    `sort`           int                                                            DEFAULT NULL COMMENT '序号',
+    `field_name`     varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci   DEFAULT NULL COMMENT '字段名称',
+    `label`          varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '显示名称',
+    `width`          int                                                            DEFAULT '0' COMMENT '显示宽度',
+    `input_type`     varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci   DEFAULT NULL COMMENT '显示类型 text input dialog select filter date time button money',
+    `visible`        bit(1)                                                         DEFAULT NULL COMMENT '是否显示',
+    `readonly`       bit(1)                                                         DEFAULT NULL COMMENT '是否只读',
+    `layout_type`    varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci   DEFAULT NULL COMMENT '表单类型 table/form',
+    `data_source`    varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  DEFAULT NULL COMMENT '数据源 作为 select 下拉的数据源 以及 按钮组对象',
+    `validate_rules` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  DEFAULT NULL COMMENT '表单验证',
+    `filterable`     bit(1)                                                         DEFAULT NULL COMMENT '下拉搜索',
+    `auth_config`    varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '用户角色表ID',
+    `sortable`       bit(1)                                                         DEFAULT b'0' COMMENT '是否前端排序',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY              `idx_id` (`id`) USING BTREE,
+    KEY              `idx_layout_id` (`layout_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='单据布局明细';
 
 DROP TABLE IF EXISTS tenant;
