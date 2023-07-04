@@ -30,10 +30,10 @@ public class Constanst {
 
     /** 文件格式 */
     public static final String IMAGE = "图片";
-    public static String AUDIO = "音频";
-    public static String VIDEO = "视频";
-    public static String WORD = "文档";
-    public static String UNKNOW = "未知";
+    public static final String AUDIO = "音频";
+    public static final String VIDEO = "视频";
+    public static final String WORD = "文档";
+    public static final String UNKNOW = "未知";
 
     /**
      * 默认手机号正则
@@ -62,10 +62,10 @@ public class Constanst {
     public static final String CHINA_HANGKONG_PATTERN = "^(00)?(852)[5|6|9]\\d{7}$";
 
     /** 启用 */
-    public static String ENABLE = "Y";
+    public static final String ENABLE = "Y";
     /** 禁用 */
-    public static String UNENABLE = "N";
+    public static final String UNENABLE = "N";
     /** 日期格式 */
-    public static String FORMAT_YYMMDD_HHMMSS = "yyyy-MM-dd HH:mm:ss";
-    public static String FORMAT_YYMMDD = "yyyy-MM-dd";
+    public static final String FORMAT_YYMMDD_HHMMSS = "yyyy-MM-dd HH:mm:ss";
+    public static final String FORMAT_YYMMDD = "yyyy-MM-dd";
 }
