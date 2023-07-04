@@ -1,12 +1,34 @@
 package com.device.common.constanst;
 
 
+import org.springframework.stereotype.Component;
+
 /**
  * 常量
  * @Author: Guoji Shen
  * @Date: 2023/6/29 17:09
  */
+@Component
 public class Constanst {
+
+    public static String ADMIN = "管理员";
+
+    /** 默认验证码过期时间 */
+    public static Long DEFAULT_AUTH_CODE_EXPIRE = 5L;
+
+    /** 默认验证码过期时间 */
+    public static String DEFAULT_AUTH_CODE_EXPIRE_STR = String.valueOf(DEFAULT_AUTH_CODE_EXPIRE);
+
+    /**
+     * UTF-8 字符集
+     */
+    public static String UTF8 = "UTF-8";
+
+    /**
+     * GBK 字符集
+     */
+    public static final String GBK = "GBK";
+
     // 文件格式
     public static String IMAGE = "图片";
     public static String AUDIO = "音频";
