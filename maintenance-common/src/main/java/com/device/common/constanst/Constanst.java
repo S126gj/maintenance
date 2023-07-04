@@ -11,26 +11,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class Constanst {
 
-    public static String ADMIN = "管理员";
+    /** 管理员 */
+    public static final String ADMIN = "管理员";
+    /** 默认用户密码 */
+    public static final String DEFAULT_PASSWORD = "123456";
 
     /** 默认验证码过期时间 */
-    public static Long DEFAULT_AUTH_CODE_EXPIRE = 5L;
+    public static final Long DEFAULT_AUTH_CODE_EXPIRE = 5L;
 
     /** 默认验证码过期时间 */
-    public static String DEFAULT_AUTH_CODE_EXPIRE_STR = String.valueOf(DEFAULT_AUTH_CODE_EXPIRE);
+    public static final String DEFAULT_AUTH_CODE_EXPIRE_STR = String.valueOf(DEFAULT_AUTH_CODE_EXPIRE);
 
-    /**
-     * UTF-8 字符集
-     */
-    public static String UTF8 = "UTF-8";
+    /** UTF-8 字符集 */
+    public static final String UTF8 = "UTF-8";
 
-    /**
-     * GBK 字符集
-     */
+    /** GBK 字符集 */
     public static final String GBK = "GBK";
 
-    // 文件格式
-    public static String IMAGE = "图片";
+    /** 文件格式 */
+    public static final String IMAGE = "图片";
     public static String AUDIO = "音频";
     public static String VIDEO = "视频";
     public static String WORD = "文档";
@@ -62,13 +61,11 @@ public class Constanst {
      */
     public static final String CHINA_HANGKONG_PATTERN = "^(00)?(852)[5|6|9]\\d{7}$";
 
-    // 启用
+    /** 启用 */
     public static String ENABLE = "Y";
-    // 禁用
+    /** 禁用 */
     public static String UNENABLE = "N";
-    // 默认用户密码
-    public static final String DEFAULT_PASSWORD = "123456";
-    // 日期格式
+    /** 日期格式 */
     public static String FORMAT_YYMMDD_HHMMSS = "yyyy-MM-dd HH:mm:ss";
     public static String FORMAT_YYMMDD = "yyyy-MM-dd";
 }
