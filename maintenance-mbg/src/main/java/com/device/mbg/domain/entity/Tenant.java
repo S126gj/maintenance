@@ -1,15 +1,11 @@
 package com.device.mbg.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -45,6 +41,10 @@ public class Tenant implements Serializable {
     @Schema(description = "到期日期")
     @TableField("end_date")
     private LocalDateTime endDate;
+
+    @Schema(description = "工厂实例id")
+    @TableField("instance_id")
+    private String instanceId;
 
     @Schema(description = "授权信息")
     @TableField("license")
