@@ -39,8 +39,7 @@ springdoc:
       paths-to-match: '/**'
       packages-to-scan:
         - com.device.mbg.controller
-        - com.device.file.minio.controller
-        - com.device.file.oss.controller
+        - com.device.file.controller
         - com.device.system.column.controller
         - com.device.system.core.controller
 # knife4j

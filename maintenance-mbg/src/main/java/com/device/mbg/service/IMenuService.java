@@ -34,6 +34,18 @@ public interface IMenuService extends IService<Menu> {
     List<MenuNode> treeList();
 
     /**
+     * 树状结构返回所有菜单列表
+     * @return
+     */
+    List<MenuNode> treeListByUserId(String userId);
+
+    /**
+     * 树状结构返回所有菜单列表
+     * @return
+     */
+    List<MenuNode> treeListByRoleId(String roleId);
+
+    /**
      * 修改菜单显示状态
      * @param id        菜单id
      * @param hidden    0-显示 1-隐藏

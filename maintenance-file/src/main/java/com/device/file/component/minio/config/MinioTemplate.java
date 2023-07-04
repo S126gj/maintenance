@@ -1,4 +1,4 @@
-package com.device.file.minio.config;
+package com.device.file.component.minio.config;
 
 import cn.hutool.core.util.StrUtil;
 import io.minio.*;

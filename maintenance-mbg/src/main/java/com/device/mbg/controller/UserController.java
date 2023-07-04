@@ -7,6 +7,8 @@ import com.device.common.utils.R;
 import com.device.common.utils.RedisUtils;
 import com.device.mbg.domain.criteria.UserCriteria;
 import com.device.mbg.domain.dto.UserCreateParam;
+import com.device.mbg.domain.vo.UserInfo;
+import com.device.mbg.service.IMenuService;
 import com.device.mbg.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -31,6 +33,8 @@ public class UserController {
     @Autowired
     private IUserService userService;
     @Autowired
+    private IMenuService menuService;
+    @Autowired
     private RedisUtils redisUtils;
 
     @Operation(summary = "查询所有用户")
@@ -48,7 +52,9 @@ public class UserController {
     @Operation(summary = "获取用户信息")
     @GetMapping(value = "/getUserInfo")
     public R getUserInfo() {
-        return R.ok().data(redisUtils.get(String.format("%s%s", CacheKey.TENANT, StpUtil.getLoginId())));
+        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.TENANT, StpUtil.getLoginId()));
+        userInfo.setMenuList(menuService.treeListByUserId(StpUtil.getLoginId().toString()));
+        return R.ok().data(userInfo);
     }
 
     @Operation(summary = "新增用户")
@@ -66,9 +72,10 @@ public class UserController {
     }
 
     @Operation(summary = "禁用用户")
-    @PostMapping(value = "/disableUser")
-    public R disableUser(@Parameter(description = "用户id") @RequestParam(value = "id") String id) {
-        userService.disableUser(id);
+    @PostMapping(value = "/updateStatus")
+    public R updateStatus(@Parameter(description = "用户id") @RequestParam(value = "id") String id,
+        @Parameter(description = "0->禁用；1->启用") @RequestParam(value = "status") Integer status) {
+        userService.updateStatus(id, status);
         return R.ok();
     }
 

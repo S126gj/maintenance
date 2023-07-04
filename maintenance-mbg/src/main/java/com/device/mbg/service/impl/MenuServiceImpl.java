@@ -9,8 +9,10 @@ import com.device.mbg.domain.dto.MenuNode;
 import com.device.mbg.domain.entity.Menu;
 import com.device.mbg.mapper.MenuMapper;
 import com.device.mbg.service.IMenuService;
+import com.device.mbg.service.IRoleMenuService;
 import com.device.mbg.utils.PageUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,9 @@ import java.util.stream.Collectors;
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
+    @Autowired
+    private IRoleMenuService roleMenuService;
+
     @Override
     public Map<String, Object> queryAll(MenuCriteria criteria, Page page) {
         IPage<Menu> iPage = baseMapper.queryAll(criteria, page);
@@ -38,6 +43,26 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Override
     public List<MenuNode> treeList() {
         List<Menu> menuList = new LambdaQueryChainWrapper<>(baseMapper).orderByAsc(Menu::getSort).list();
+        List<MenuNode> result = menuList.stream()
+            .filter(menu -> menu.getPid().equals("0"))
+            .map(menu -> covertMenuNode(menu, menuList))
+            .collect(Collectors.toList());
+        return result;
+    }
+
+    @Override
+    public List<MenuNode> treeListByRoleId(String roleId) {
+        List<Menu> menuList = roleMenuService.getMenuListByRoleId(roleId);
+        List<MenuNode> result = menuList.stream()
+            .filter(menu -> menu.getPid().equals("0"))
+            .map(menu -> covertMenuNode(menu, menuList))
+            .collect(Collectors.toList());
+        return result;
+    }
+
+    @Override
+    public List<MenuNode> treeListByUserId(String userId) {
+        List<Menu> menuList = roleMenuService.getMenuListByUserId(userId);
         List<MenuNode> result = menuList.stream()
             .filter(menu -> menu.getPid().equals("0"))
             .map(menu -> covertMenuNode(menu, menuList))

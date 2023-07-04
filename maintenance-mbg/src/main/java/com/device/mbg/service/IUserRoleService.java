@@ -1,7 +1,6 @@
 package com.device.mbg.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.device.mbg.domain.entity.Role;
 import com.device.mbg.domain.entity.UserRole;
 
 import java.util.List;
@@ -27,5 +26,5 @@ public interface IUserRoleService extends IService<UserRole> {
      * @param userId
      * @param roleList
      */
-    void bindRole(String userId, List<Role> roleList);
+    void bindRole(String userId, List<String> roleList);
 }

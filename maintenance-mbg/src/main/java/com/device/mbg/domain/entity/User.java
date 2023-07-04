@@ -1,16 +1,16 @@
 package com.device.mbg.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
+import com.baomidou.mybatisplus.annotation.*;
+import com.device.common.annotation.Phone;
+import com.device.mbg.handler.ListConvertHandler;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import javax.validation.constraints.Email;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -48,7 +48,7 @@ public class User implements Serializable {
     @TableField("password")
     private String password;
 
-    @NotBlank(message = "手机号不能为空")
+    @Phone
     @Schema(description = "手机号码")
     @TableField("phone")
     private String phone;
@@ -60,6 +60,11 @@ public class User implements Serializable {
     @Schema(description = "身份证号")
     @TableField("id_card")
     private String idCard;
+
+    @Email(message = "邮箱格式不正确")
+    @Schema(description = "邮箱")
+    @TableField("email")
+    private String email;
 
     @Schema(description = "头像")
     @TableField("icon")
@@ -80,4 +85,8 @@ public class User implements Serializable {
     @Schema(description = "修改时间")
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
+
+    @Schema(description = "角色")
+    @TableField(typeHandler = ListConvertHandler.class, exist = false)
+    private List<String> roleList;
 }

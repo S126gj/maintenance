@@ -10,11 +10,16 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+  servlet:
+    # 单次上传文件大小限制
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
 
 # mybatis-plus
 mybatis-plus:
   type-aliases-package: com.device.entity
-  mapper-locations: classpath:com/device/mbg/mapper/xml/*.xml,com/device/system/column/mapper/xml/*.xml,com/device/system/core/mapper/xml/*.xml
+  mapper-locations: classpath:com/device/mbg/mapper/xml/*.xml,com/device/file/mapper/xml/*.xml,com/device/system/column/mapper/xml/*.xml,com/device/system/core/mapper/xml/*.xml
   configuration:
     # 输出日志到控制台
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,4 +1,4 @@
-package com.device.file.minio.service.impl;
+package com.device.file.component.minio.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.UUID;
@@ -7,8 +7,8 @@ import cn.hutool.core.net.url.UrlPath;
 import cn.hutool.core.util.CharsetUtil;
 import com.device.common.exception.BIZException;
 import com.device.common.utils.StringUtil;
-import com.device.file.minio.config.MinioTemplate;
-import com.device.file.minio.service.MinioService;
+import com.device.file.component.minio.config.MinioTemplate;
+import com.device.file.component.minio.service.MinioService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Value;

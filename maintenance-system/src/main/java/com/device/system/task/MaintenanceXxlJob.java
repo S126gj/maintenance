@@ -1,7 +1,9 @@
 package com.device.system.task;
 
+import com.device.file.service.IFileService;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,9 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class MaintenanceXxlJob {
 
-    @XxlJob("cancelTimeOutOrder")
-    private void cancelTimeOutOrder() {
-        Integer count = 0;
-        log.info("取消订单，并根据sku编号释放锁定库存，取消订单数量：{}", count);
+    @Autowired
+    private IFileService fileService;
+
+    @XxlJob("deleteNoSourceFiles")
+    private void deleteNoSourceFiles() {
+        Long num = fileService.deleteNoSourceFiles();
+        log.info("删除无来源单据 {} 条", num);
     }
 }

@@ -7,7 +7,6 @@ import com.device.mbg.domain.dto.UserCreateParam;
 import com.device.mbg.domain.dto.UserRegisterParam;
 import com.device.mbg.domain.entity.User;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,10 +26,11 @@ public interface IUserService extends IService<User> {
     void register(UserRegisterParam userRegisterParam);
 
     /**
-     * 禁用用户
+     * 修改用户状态
      * @param id
+     * @param status
      */
-    void disableUser(String id);
+    void updateStatus(String id, Integer status);
 
     /**
      * 查询所有用户

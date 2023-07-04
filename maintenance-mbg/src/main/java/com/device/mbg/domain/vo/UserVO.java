@@ -25,10 +25,6 @@ public class UserVO extends User {
     @Schema(description = "性别")
     private String genderDesc;
 
-    @Schema(description = "角色")
-    @TableField(typeHandler = ListConvertHandler.class)
-    private List<String> roleList;
-
     public String getStatusDesc() {
         return getStatus().equals(1) ? "启用" : "禁用";
     }

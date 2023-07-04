@@ -13,7 +13,7 @@ import java.util.List;
  */
 @AllArgsConstructor
 public enum DictEnum {
-    FAULT_TYPE(DictTypeEnum.BASE_DICT, "故障类型"),
+    ERROR_TYPE(DictTypeEnum.BASE_DICT, "故障类型"),
     ;
 
     @Getter

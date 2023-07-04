@@ -3,12 +3,12 @@
 <mapper namespace="com.device.mbg.mapper.UserMapper">
 
     <sql id="Base_Column_List">
-        id, tenant_id, username, phone, real_name, id_card, icon, status, gender, gmt_create, gmt_modified
+        id, tenant_id, username, phone, real_name, id_card, email, icon, status, gender, gmt_create, gmt_modified
     </sql>
 
     <select id="queryAll" resultType="com.device.mbg.domain.vo.UserVO">
         select GROUP_CONCAT(r.`name`) roleList, u.id, u.tenant_id, u.username, u.phone, u.real_name, u.id_card,
-               u.icon, u.`status`, u.gender, u.gmt_create, u.gmt_modified
+               u.icon, u.`status`, u.email, u.gender, u.gmt_create, u.gmt_modified
         from sys_user u
         left join sys_user_role ur on ur.user_id = u.id
         left join sys_role r on r.id = ur.role_id

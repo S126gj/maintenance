@@ -17,8 +17,9 @@ INSERT INTO `sys_layout_d` VALUES('005001002', '5', @tenant_id, 1, 'roleList', '
 INSERT INTO `sys_layout_d` VALUES('005001003', '5', @tenant_id, 2, 'realName', '姓名', 100, 'text', true, true, 'table', null, null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('005001004', '5', @tenant_id, 3, 'phone', '手机号', 100, 'text', true, true, 'table', null, null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('005001005', '5', @tenant_id, 4, 'idCard', '身份证', 100, 'text', true, true, 'table', null, null, 1, null, true);
-INSERT INTO `sys_layout_d` VALUES('005001006', '5', @tenant_id, 5, 'genderDesc', '性别', 100, 'text', true, true, 'table', null, null, 1, null, true);
-INSERT INTO `sys_layout_d` VALUES('005001007', '5', @tenant_id, 6, 'statusDesc', '状态', 100, 'text', true, true, 'table', null, null, 1, null, true);
+INSERT INTO `sys_layout_d` VALUES('005001006', '5', @tenant_id, 5, 'email', '邮箱', 100, 'text', true, true, 'table', null, null, 1, null, true);
+INSERT INTO `sys_layout_d` VALUES('005001007', '5', @tenant_id, 6, 'genderDesc', '性别', 100, 'text', true, true, 'table', null, null, 1, null, true);
+INSERT INTO `sys_layout_d` VALUES('005001008', '5', @tenant_id, 7, 'statusDesc', '状态', 100, 'text', true, true, 'table', null, null, 1, null, true);
 
 --  用户管理详情 --
 INSERT INTO `sys_layout` VALUES ('6', @tenant_id, '用户管理详情');
@@ -27,4 +28,6 @@ INSERT INTO `sys_layout_d` VALUES('006001002', '6', @tenant_id, 1, 'phone', '手
 INSERT INTO `sys_layout_d` VALUES('006001003', '6', @tenant_id, 2, 'gender', '性别', 100, 'select', true, false, 'table', null, null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('006001004', '6', @tenant_id, 3, 'idCard', '身份证', 100, 'input', true, false, 'table', null, null, 1, null, true);
 INSERT INTO `sys_layout_d` VALUES('006001005', '6', @tenant_id, 4, 'realName', '真实姓名', 100, 'input', true, false, 'table', null, null, 1, null, true);
-INSERT INTO `sys_layout_d` VALUES('006001006', '6', @tenant_id, 5, 'icon', '头像', 100, 'upload', true, false, 'table', null, null, 1, null, true);
+INSERT INTO `sys_layout_d` VALUES('006001006', '6', @tenant_id, 5, 'email', '邮箱', 100, 'input', true, false, 'table', null, null, 1, null, true);
+INSERT INTO `sys_layout_d` VALUES('006001007', '6', @tenant_id, 6, 'icon', '头像', 100, 'upload', true, false, 'table', null, null, 1, null, true);
+INSERT INTO `sys_layout_d` VALUES('006001008', '6', @tenant_id, 7, 'roleList', '角色', 100, 'multi-select', true, false, 'table', '/combo/layout/getRole', null, 1, null, true);

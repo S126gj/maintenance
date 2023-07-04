@@ -16,10 +16,10 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <!-- common 公共模块 -->
+        <!-- mybatis 模块 -->
         <dependency>
             <groupId>com.device</groupId>
-            <artifactId>maintenance-common</artifactId>
+            <artifactId>maintenance-mbg</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = {"com.device.mbg.mapper", "com.device.system.column.mapper", "com.device.system.core.mapper"})
+@MapperScan(basePackages = {"com.device.mbg.mapper", "com.device.file.mapper", "com.device.system.column.mapper", "com.device.system.core.mapper"})
 public class MyBatisPlusSaasConfig {
 
     /**

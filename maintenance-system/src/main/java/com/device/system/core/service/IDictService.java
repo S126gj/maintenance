@@ -22,7 +22,7 @@ public interface IDictService extends IService<Dict> {
      * 获取字典类型
      * @return
      */
-    Map<String, List<Map<String, String>>> getDictByType();
+    Map<String, List<String>> getDictByType();
 
     /**
      * 获取对应字典启用数据
@@ -45,4 +45,10 @@ public interface IDictService extends IService<Dict> {
      * @param status    0->禁用；1->启用
      */
     void updateStatus(String id, Integer status);
+
+    /**
+     * 根据字典类型获取所有字典信息
+     * @param dictEnum
+     */
+    List<Dict> queryAll(DictEnum dictEnum);
 }

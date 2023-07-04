@@ -15,6 +15,7 @@ import lombok.experimental.Accessors;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * <p>
@@ -51,6 +52,9 @@ public class Dict implements Serializable {
     @TableField("type")
     private DictEnum type;
 
+    @TableField(exist = false)
+    private String typeDesc;
+
     @Schema(description = "排序")
     @TableField("sort")
     private Integer sort;
@@ -72,4 +76,8 @@ public class Dict implements Serializable {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime gmtModified;
+
+    public String getTypeDesc() {
+        return Optional.ofNullable(type).map(DictEnum::getMsg).orElse(null);
+    }
 }

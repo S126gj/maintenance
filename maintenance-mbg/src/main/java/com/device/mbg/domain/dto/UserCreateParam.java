@@ -1,6 +1,5 @@
 package com.device.mbg.domain.dto;
 
-import com.device.mbg.domain.entity.Role;
 import com.device.mbg.domain.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -18,6 +17,6 @@ import java.util.List;
 public class UserCreateParam extends User {
 
     @Schema(description = "角色")
-    private List<Role> roleList;
+    private List<String> roleList;
 
 }

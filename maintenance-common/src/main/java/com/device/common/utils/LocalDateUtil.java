@@ -1,5 +1,6 @@
 package com.device.common.utils;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import com.device.common.constanst.Constanst;
 
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @Author: Guoji Shen
  * @Date: 2023/6/29 08:08
  */
-public class LocalDateUtil extends cn.hutool.core.date.DateUtil {
+public class LocalDateUtil extends LocalDateTimeUtil {
 
     /**
      * 添加相应秒数

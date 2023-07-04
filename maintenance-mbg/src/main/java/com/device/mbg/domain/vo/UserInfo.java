@@ -2,6 +2,7 @@ package com.device.mbg.domain.vo;
 
 import cn.hutool.core.collection.CollUtil;
 import com.device.common.utils.Constants;
+import com.device.mbg.domain.dto.MenuNode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -40,6 +41,9 @@ public class UserInfo implements Serializable {
 
     @Schema(description = "角色")
     private List<String> roleList;
+
+    @Schema(description = "菜单")
+    private List<MenuNode> menuList;
 
     public boolean isAdmin() {
         if (CollUtil.isNotEmpty(roleList)) {

@@ -3,6 +3,7 @@ package com.device.system.core.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.device.common.constanst.CacheKey;
@@ -15,14 +16,16 @@ import com.device.system.core.entity.enums.DictEnum;
 import com.device.system.core.entity.enums.DictTypeEnum;
 import com.device.system.core.mapper.DictMapper;
 import com.device.system.core.service.IDictService;
-import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -40,20 +43,17 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
     private RedisUtils redisUtils;
 
     @Override
-    public Map<String, List<Map<String, String>>> getDictByType() {
-        Map<String, List<Map<String, String>>> map = new HashMap<>();
+    public Map<String, List<String>> getDictByType() {
+        Map<String, List<String>> map = new HashMap<>();
         for (DictTypeEnum typeEnum : DictTypeEnum.values()) {
-            List<Map<String, String>> dictMap = new ArrayList<>();
             List<DictEnum> dictEnums = DictEnum.getByType(typeEnum);
-            dictEnums.forEach(dict ->
-                dictMap.add(new ImmutableMap.Builder<String, String>().put(dict.getMsg(), dict.name()).build()));
-            map.put(typeEnum.getMsg(), dictMap);
+            map.put(typeEnum.getMsg(), dictEnums.stream().map(DictEnum::name).collect(Collectors.toList()));
         }
         return map;
     }
 
     @Override
-    @Cacheable(key = "#root.target.getKey() + #p0")
+    // @Cacheable(key = "#root.target.getKey() + #p0")
     public Map<String, Object> queryAll(DictEnum dict, boolean enable, Page page) {
         if (Objects.isNull(dict)) {
             return null;
@@ -81,6 +81,11 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
         Dict dict = baseMapper.selectById(id);
         dict.setStatus(status);
         baseMapper.updateById(dict);
+    }
+
+    @Override
+    public List<Dict> queryAll(DictEnum dictEnum) {
+        return new LambdaQueryChainWrapper<>(baseMapper).eq(Dict::getType, dictEnum.name()).eq(Dict::getStatus, 1).orderByAsc(Dict::getGmtCreate).list();
     }
 
     /**

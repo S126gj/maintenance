@@ -42,7 +42,7 @@ public class CodeGenerator {
                 })
 
                 .packageConfig(builder -> {
-                    builder.parent("com.device.system") // 设置父包名
+                    builder.parent("com.device.system.core") // 设置父包名
                             .entity("entity")
                             .service("service")
                             .serviceImpl("service.impl")
@@ -53,7 +53,7 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, xmlPath));
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_dict") // 设置需要生成的表名
+                    builder.addInclude("sys_dealer") // 设置需要生成的表名
                             .addTablePrefix("sys_")
                             .build()
                             // 实体类配置

@@ -12,9 +12,11 @@ import com.device.common.utils.StringUtil;
 import com.device.mbg.domain.criteria.UserCriteria;
 import com.device.mbg.domain.dto.UserCreateParam;
 import com.device.mbg.domain.dto.UserRegisterParam;
+import com.device.mbg.domain.entity.Role;
 import com.device.mbg.domain.entity.User;
 import com.device.mbg.domain.vo.UserVO;
 import com.device.mbg.mapper.UserMapper;
+import com.device.mbg.service.IRoleMenuService;
 import com.device.mbg.service.IUserRoleService;
 import com.device.mbg.service.IUserService;
 import com.device.mbg.utils.PageUtil;
@@ -37,6 +39,8 @@ import java.util.Optional;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Autowired
+    private IRoleMenuService roleMenuService;
+    @Autowired
     private IUserRoleService userRoleService;
 
     @Transactional(rollbackFor = Exception.class)
@@ -56,9 +60,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void disableUser(String id) {
+    public void updateStatus(String id, Integer status) {
         User user = baseMapper.selectById(id);
-        user.setStatus(0);
+        user.setStatus(status);
         baseMapper.updateById(user);
     }
 
@@ -70,7 +74,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public User findById(String id) {
-        return baseMapper.findById(id);
+        User user = baseMapper.findById(id);
+        user.setRoleList(roleMenuService.getRoleListByUserId(user.getId()).stream().map(Role::getName).toList());
+        return user;
     }
 
     @Transactional(rollbackFor = Exception.class)

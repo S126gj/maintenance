@@ -27,6 +27,12 @@ public interface IRoleService extends IService<Role> {
     Map<String, Object> queryAll(RoleCriteria criteria, Page page);
 
     /**
+     * 查询所有角色
+     * @return
+     */
+    List<Role> queryAllCache();
+
+    /**
      * 根据id获取对应角色信息
      * @param id
      * @param flag  是否查询角色对应菜单
