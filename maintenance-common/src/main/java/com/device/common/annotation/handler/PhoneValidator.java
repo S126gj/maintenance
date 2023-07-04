@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class PhoneValidator implements ConstraintValidator<Phone, String> {
 
-    private Pattern pattern = Pattern.compile(Constanst.CHINA_TELECOM_PATTERN);
+    private Pattern pattern = Pattern.compile(Constanst.DEFAULT_PATTERN);
 
     @Override
     public void initialize(Phone phone) {
