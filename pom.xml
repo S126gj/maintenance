@@ -48,6 +48,7 @@
         <minio.version>8.5.2</minio.version>
         <servlet-api.version>4.0.1</servlet-api.version>
         <hutool.version>5.8.11</hutool.version>
+        <pinyin.version>2.5.0</pinyin.version>
         <guava.version>30.1.1-jre</guava.version>
         <spring-data-common.version>3.0.5</spring-data-common.version>
         <sa-token.version>1.34.0</sa-token.version>
@@ -71,6 +72,12 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+        <!-- hutool 拼音工具包 -->
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>${pinyin.version}</version>
         </dependency>
         <!-- guava -->
         <dependency>
