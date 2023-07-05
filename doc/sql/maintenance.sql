@@ -282,7 +282,7 @@ CREATE TABLE `sys_file`
     `type`                varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  DEFAULT NULL COMMENT '文件类型',
     `name`                varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '文件名称',
     `size`                double                                                        DEFAULT NULL COMMENT '文件大小(M)',
-    `upload_man`          char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci     NOT NULL COMMENT '上传人',
+    `upload_man`          varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci     NOT NULL COMMENT '上传人',
     `path`                varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文件路径',
     `gmt_create`          datetime                                                      DEFAULT NULL COMMENT '创建时间',
     `gmt_modified`        datetime                                                      DEFAULT NULL COMMENT '修改时间',
