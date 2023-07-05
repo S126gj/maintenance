@@ -3,7 +3,8 @@
 <mapper namespace="com.device.file.mapper.FileMapper">
 
     <select id="queryAll" resultType="com.device.file.entity.vo.UploadRecordVO">
-        select id id, name fileName, `size` `size`, upload_man uploadMan, gmtcreate uploadTime
+        select id id, name fileName, `size` `size`, upload_man uploadMan, gmt_create uploadTime
+        from sys_file
         where 1 = 1
         <include refid="selectCondition"/>
         order by gmt_create desc
