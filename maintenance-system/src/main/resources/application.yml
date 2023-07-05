@@ -43,7 +43,7 @@ sa-token:
   # 是否输出操作日志
   is-log: true
 
-# xxljob
+# xxljob  此项目暂时未启用xxljob，如若需要可自行开启
 xxl:
   job:
     # 是否启用 Y 启用，N禁用
