@@ -6,6 +6,9 @@ spring:
     name: maintenance
   profiles:
     active: dev
+  # 依赖循环解决
+  main:
+    allow-circular-references: true
   # swagger 冲突解决
   mvc:
     pathmatch:
