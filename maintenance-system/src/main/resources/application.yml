@@ -22,7 +22,7 @@ spring:
 # mybatis-plus
 mybatis-plus:
   type-aliases-package: com.device.entity
-  mapper-locations: classpath:com/device/mbg/mapper/xml/*.xml,com/device/file/mapper/xml/*.xml,com/device/system/column/mapper/xml/*.xml,com/device/system/core/mapper/xml/*.xml
+  mapper-locations: classpath*:com/device/**/*.xml
   configuration:
     # 输出日志到控制台
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
