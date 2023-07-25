@@ -1,4 +1,4 @@
-package com.device.system.api.client;
+package com.device.forest.client;
 
 import com.dtflys.forest.annotation.BaseRequest;
 import com.dtflys.forest.annotation.Body;

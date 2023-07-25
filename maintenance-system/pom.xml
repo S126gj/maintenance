@@ -21,6 +21,11 @@
     </properties>
 
     <dependencies>
+        <!-- es 模块 -->
+        <dependency>
+            <groupId>com.device</groupId>
+            <artifactId>maintenance-es</artifactId>
+        </dependency>
         <!-- mybatis 模块 -->
         <dependency>
             <groupId>com.device</groupId>
@@ -30,6 +35,11 @@
         <dependency>
             <groupId>com.device</groupId>
             <artifactId>maintenance-file</artifactId>
+        </dependency>
+        <!-- forest 三方对接模块 -->
+        <dependency>
+            <groupId>com.device</groupId>
+            <artifactId>maintenance-forest</artifactId>
         </dependency>
         <!-- sms 短信模块 -->
         <dependency>
@@ -41,10 +51,10 @@
             <groupId>com.device</groupId>
             <artifactId>maintenance-xxljob</artifactId>
         </dependency>
-        <!--forest-->
+        <!--poi-->
         <dependency>
-            <groupId>com.dtflys.forest</groupId>
-            <artifactId>forest-spring-boot-starter</artifactId>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
         </dependency>
     </dependencies>
 

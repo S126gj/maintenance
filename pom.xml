@@ -14,8 +14,10 @@
     <!-- 子模块 -->
     <modules>
         <module>maintenance-common</module>
+        <module>maintenance-es</module>
         <module>maintenance-mbg</module>
         <module>maintenance-file</module>
+        <module>maintenance-forest</module>
         <module>maintenance-sms</module>
         <module>maintenance-system</module>
         <module>maintenance-xxljob</module>
@@ -59,9 +61,17 @@
         <rly-sdk.version>1.0.4</rly-sdk.version>
         <xxljob.version>2.3.1</xxljob.version>
         <forest.version>1.5.23</forest.version>
+        <poi.version>5.2.3</poi.version>
+        <google.zxing.javase>3.3.0</google.zxing.javase>
+        <google.zxing.core>3.3.0</google.zxing.core>
+        <commons-fileupload>1.5</commons-fileupload>
+        <easy-es.version>2.0.0-beta3</easy-es.version>
+        <elasticsearch.version>7.14.0</elasticsearch.version>
         <maintenance-common.version>1.0-SNAPSHOT</maintenance-common.version>
+        <maintenance-es.version>1.0-SNAPSHOT</maintenance-es.version>
         <maintenance-mbg.version>1.0-SNAPSHOT</maintenance-mbg.version>
         <maintenance-file.version>1.0-SNAPSHOT</maintenance-file.version>
+        <maintenance-forest.version>1.0-SNAPSHOT</maintenance-forest.version>
         <maintenance-sms.version>1.0-SNAPSHOT</maintenance-sms.version>
         <maintenance-xxljob.version>1.0-SNAPSHOT</maintenance-xxljob.version>
     </properties>
@@ -122,11 +132,39 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 去除重复es依赖，避免与easy-es冲突 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.elasticsearch.client</groupId>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <!-- google二维码生成 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>${google.zxing.javase}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${google.zxing.core}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -137,6 +175,12 @@
                 <groupId>com.device</groupId>
                 <artifactId>maintenance-common</artifactId>
                 <version>${maintenance-common.version}</version>
+            </dependency>
+            <!-- es 模块 -->
+            <dependency>
+                <groupId>com.device</groupId>
+                <artifactId>maintenance-es</artifactId>
+                <version>${maintenance-es.version}</version>
             </dependency>
             <!-- mybatis 模块 -->
             <dependency>
@@ -149,6 +193,12 @@
                 <groupId>com.device</groupId>
                 <artifactId>maintenance-file</artifactId>
                 <version>${maintenance-file.version}</version>
+            </dependency>
+            <!-- forest 三方对接模块 -->
+            <dependency>
+                <groupId>com.device</groupId>
+                <artifactId>maintenance-forest</artifactId>
+                <version>${maintenance-forest.version}</version>
             </dependency>
             <!-- sms 短信模块 -->
             <dependency>
@@ -280,6 +330,33 @@
                 <groupId>com.dtflys.forest</groupId>
                 <artifactId>forest-spring-boot-starter</artifactId>
                 <version>${forest.version}</version>
+            </dependency>
+            <!--poi-->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <!-- elasticsearch -->
+            <dependency>
+                <groupId>org.dromara.easy-es</groupId>
+                <artifactId>easy-es-boot-starter</artifactId>
+                <version>${easy-es.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

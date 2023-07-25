@@ -19,7 +19,7 @@ spring:
 file:
   # minio 文件上传
   minio:
-    url: http://123.60.49.164:9000
+    url: http://localhost:9000
     accessKey: minioadmin
     secretKey: minioadmin
     bucketName: maintenance
@@ -98,9 +98,11 @@ springdoc:
         - com.device.file.controller
         - com.device.system.column.controller
         - com.device.system.core.controller
+        - com.device.system.staff.controller
+        - com.device.system.customer.controller
 # knife4j
 knife4j:
-  enable: false
+  enable: true
   setting:
     language: zh_cn
 
@@ -109,3 +111,12 @@ forest:
   variables:
     # 可指定多个client
     apiUrl: http://localhost
+
+# elasticsearch
+# es-head连接路径: http://123.60.49.164:9200/?auth_user=elastic&auth_password=Q2NEUIKqTaaLUXCCe3qz
+# kibana 地址 http://123.60.49.164:5601
+easy-es:
+  enable: true
+  address: localhost:9200
+  username: elastic
+  password:
