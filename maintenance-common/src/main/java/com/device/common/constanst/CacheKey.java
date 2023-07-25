@@ -19,6 +19,11 @@ public interface CacheKey {
     String TENANT = PROJECT + ":" + "tenant:";
 
     /**
+     * 用户租户
+     */
+    String CUSTOMER_TENANT = PROJECT + ":" + "customer:" + "tenant:";
+
+    /**
      * 布局
      */
     String LAYOUT = PROJECT + ":" + "layout:";

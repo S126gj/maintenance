@@ -1,12 +1,14 @@
 package com.device.mbg.auth.config;
 
 import cn.dev33.satoken.context.SaHolder;
+import cn.dev33.satoken.exception.SaTokenException;
 import cn.dev33.satoken.filter.SaServletFilter;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
 import com.device.common.utils.R;
+import com.device.mbg.auth.util.StpCustomerUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -23,20 +25,69 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(SaTokenConfigure.class);
 
-    // 注册拦截器
+    // 拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 注册 Sa-Token 拦截器，校验规则为 StpUtil.checkLogin() 登录校验。
-        registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
+        registry.addInterceptor(new SaInterceptor(handle -> {
+
+                // 只有登录 user 用户才可以访问的接口
+                SaRouter.match("/file/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/combo/layout/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/acl/layout/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/menu/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/role/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/user/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/code/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/customer/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/dealer/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/dict/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/enum/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/machine/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/machine/monitor/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/machineSale/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/machineSalePart/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/part/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/repairApplication/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/repairAssignTask/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/repair/record/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/repairServe/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/repairServeEvaluation/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/serviceNet/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/serviceStaff/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/upload-record/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match("/staff/**").check(r -> StpUtil.checkLogin());
+
+                // 只有登录 customer 客户才可以访问的接口
+                SaRouter.match("/customer-client/**").check(r -> StpCustomerUtil.checkLogin());
+
+                // 只有 user 用户与 customer 客户同时登录才可以访问的接口
+                // SaRouter.match("/art/getInfo").check(r -> {
+                //     StpUtil.checkLogin();
+                //     StpCustomerUtil.checkLogin();
+                // });
+
+                // 只需要登录 user 用户 和 customer 客户 任意一个，就能访问的接口：
+                // SaRouter.match("/art/getInfo").check(r -> {
+                //     if(StpUtil.isLogin() == false && StpCustomerUtil.isLogin() == false) {
+                //         throw new SaTokenException("请登录后再访问接口");
+                //     }
+                // });
+
+            }))
             .addPathPatterns("/**")
+            // api接口文档
             .excludePathPatterns("/favicon.ico")
             .excludePathPatterns("/static/**")
             .excludePathPatterns("/webjars/**")
             .excludePathPatterns("/v3/api-docs/**")
             .excludePathPatterns("/swagger-ui.html/**")
             .excludePathPatterns("/doc.html/**")
+            // 租户
             .excludePathPatterns("/tenant/**")
+            // 用户登录
             .excludePathPatterns("/sso/**")
+            // 客户登录
+            .excludePathPatterns("/customer/sso/**")
         ;
     }
 

@@ -14,12 +14,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Schema(description = "登录返回视图")
-public class LoginVO implements Serializable {
+@Schema(description = "客户登录返回视图")
+public class CustomerLoginVO implements Serializable {
 
     @Schema(description = "token")
     private String token;
-
-    @Schema(description = "用户信息")
-    private UserInfo userInfo;
 }

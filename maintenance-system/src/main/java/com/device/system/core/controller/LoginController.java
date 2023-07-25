@@ -12,18 +12,19 @@ import com.device.mbg.domain.dto.UserLoginParam;
 import com.device.mbg.domain.dto.UserRegisterParam;
 import com.device.mbg.domain.entity.Tenant;
 import com.device.mbg.domain.entity.User;
-import com.device.mbg.domain.vo.LoginVO;
+import com.device.mbg.domain.vo.UserLoginVO;
 import com.device.mbg.domain.vo.UserInfo;
 import com.device.mbg.service.ITenantService;
 import com.device.mbg.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 
 /**
@@ -44,14 +45,14 @@ public class LoginController {
 
     @Operation(summary = "注册")
     @PostMapping(value = "/register")
-    public R register(@Validated @RequestBody UserRegisterParam userRegisterParam) {
+    public R register(@Valid @RequestBody UserRegisterParam userRegisterParam) {
         userService.register(userRegisterParam);
         return R.ok();
     }
 
     @Operation(summary = "登录")
     @PostMapping(value = "/login")
-    public R login(@Validated @RequestBody UserLoginParam userLoginParam) {
+    public R login(@Valid @RequestBody UserLoginParam userLoginParam) {
         Tenant tenant = tenantService.getTenantByIdOrName(userLoginParam.getTenant());
         // 校验租户
         Checker.ifNullThrow(tenant, () -> Errors.BIZ.exception(CommonCode.TENANT_VALID_ERROR));
@@ -74,7 +75,7 @@ public class LoginController {
             .roleList(StpUtil.getRoleList()).build();
         redisUtils.set(getLoginCacheKey(), userInfo);
         // 返回token与用户信息
-        return R.ok().data(LoginVO.builder()
+        return R.ok().data(UserLoginVO.builder()
             .token(StpUtil.getTokenValue())
             .userInfo(userInfo)
             .build());
