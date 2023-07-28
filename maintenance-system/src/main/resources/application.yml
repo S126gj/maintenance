@@ -19,6 +19,17 @@ spring:
       max-file-size: 500MB
       max-request-size: 500MB
 
+task:
+  pool:
+    # 核心线程池大小
+    core-pool-size: 10
+    # 最大线程数
+    max-pool-size: 40
+    # 活跃时间
+    keep-alive-seconds: 200
+    # 队列容量
+    queue-capacity: 100
+
 # mybatis-plus
 mybatis-plus:
   type-aliases-package: com.device.entity
