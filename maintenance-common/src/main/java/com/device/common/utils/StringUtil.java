@@ -39,7 +39,7 @@ public class StringUtil extends StrUtil {
         if (CollUtil.isEmpty(list)) {
             return null;
         }
-        return Convert.toStr(list).replace("[", "").replace("]", "").trim();
+        return String.join(",", list);
     }
 
     public static String conToStr(List<String> list) {
