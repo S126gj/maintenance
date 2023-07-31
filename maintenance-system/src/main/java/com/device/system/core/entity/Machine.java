@@ -1,5 +1,7 @@
 package com.device.system.core.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -35,16 +37,22 @@ public class Machine implements Serializable {
     @TableField("tenant_id")
     private String tenantId;
 
+    @ExcelProperty("设备名称")
+    @ColumnWidth(20)
     @NotBlank(message = "设备名称不能为空")
     @Schema(description = "设备名称")
     @TableField("name")
     private String name;
 
+    @ExcelProperty("设备型号")
+    @ColumnWidth(10)
     @NotBlank(message = "设备型号不能为空")
     @Schema(description = "设备型号")
     @TableField("type")
     private String type;
 
+    @ExcelProperty("设备重量")
+    @ColumnWidth(5)
     @Schema(description = "设备重量")
     @TableField("weight")
     private Integer weight;
@@ -65,10 +73,14 @@ public class Machine implements Serializable {
     @TableField("min_width")
     private Integer minWidth;
 
+    @ExcelProperty("额定电压")
+    @ColumnWidth(5)
     @Schema(description = "额定电压")
     @TableField("rated_voltage")
     private Integer ratedVoltage;
 
+    @ExcelProperty("外型尺寸")
+    @ColumnWidth(15)
     @Schema(description = "外型尺寸")
     @TableField("size")
     private Integer size;
@@ -85,6 +97,8 @@ public class Machine implements Serializable {
     @TableField("img_path")
     private String imgPath;
 
+    @ExcelProperty("备注")
+    @ColumnWidth(20)
     @Schema(description = "备注")
     @TableField("remark")
     private String remark;

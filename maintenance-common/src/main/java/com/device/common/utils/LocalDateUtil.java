@@ -3,10 +3,10 @@ package com.device.common.utils;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.device.common.constanst.Constanst;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -15,6 +15,24 @@ import java.util.Objects;
  * @Date: 2023/6/29 08:08
  */
 public class LocalDateUtil extends LocalDateTimeUtil {
+
+    /**
+     * Date 转换 LocalDateTime
+     * @param date
+     * @return
+     */
+    public static LocalDateTime dateTransLocalDateTime(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+    /**
+     * LocalDateTime 转换 Date
+     * @param date
+     * @return
+     */
+    public static Date localDateTimeTransDate(LocalDateTime date) {
+        return Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+    }
 
     /**
      * 添加相应秒数
@@ -39,12 +57,23 @@ public class LocalDateUtil extends LocalDateTimeUtil {
     }
 
     /**
+     * 添加相应分钟数
+     * @param date      日期
+     * @param number    分钟数
+     * @return
+     */
+    public static LocalDateTime addHour(LocalDateTime date, int number) {
+        date = Objects.isNull(date) ? LocalDateTime.now() : date;
+        return date.plusHours(number);
+    }
+
+    /**
      * 添加相应天数
      * @param date      日期
      * @param number    天数
      * @return
      */
-    public static LocalDateTime addDate(LocalDateTime date, int number) {
+    public static LocalDateTime addDay(LocalDateTime date, int number) {
         date = Objects.isNull(date) ? LocalDateTime.now() : date;
         return date.plusDays(number);
     }
@@ -94,12 +123,23 @@ public class LocalDateUtil extends LocalDateTimeUtil {
     }
 
     /**
+     * 减少相应分钟数
+     * @param date      日期
+     * @param number    分钟数
+     * @return
+     */
+    public static LocalDateTime subHour(LocalDateTime date, int number) {
+        date = Objects.isNull(date) ? LocalDateTime.now() : date;
+        return date.minusHours(number);
+    }
+
+    /**
      * 减少相应天数
      * @param date      日期
      * @param number    天数
      * @return
      */
-    public static LocalDateTime subDate(LocalDateTime date, int number) {
+    public static LocalDateTime subDay(LocalDateTime date, int number) {
         date = Objects.isNull(date) ? LocalDateTime.now() : date;
         return date.minusDays(number);
     }
@@ -226,7 +266,7 @@ public class LocalDateUtil extends LocalDateTimeUtil {
      */
     public static LocalDate parseLocalDate(String str){
         DateTimeFormatter df = DateTimeFormatter.ofPattern(Constanst.FORMAT_YYMMDD);
-        return LocalDate.parse(str,df);
+        return LocalDate.parse(str, df);
     }
 
     /**
@@ -236,6 +276,22 @@ public class LocalDateUtil extends LocalDateTimeUtil {
      */
     public static LocalDateTime parseLocalDateTime(String str){
         DateTimeFormatter df = DateTimeFormatter.ofPattern(Constanst.FORMAT_YYMMDD_HHMMSS);
-        return LocalDateTime.parse(str,df);
+        return LocalDateTime.parse(str, df);
+    }
+
+    /**
+     * 获取当天开始时间
+     * @return
+     */
+    public static LocalDateTime getTodayBegin() {
+        return LocalDateTime.now().with(LocalTime.MIN);
+    }
+
+    /**
+     * 获取当天结束时间
+     * @return
+     */
+    public static LocalDateTime getTodayEnd() {
+        return LocalDateTime.now().with(LocalTime.MAX);
     }
 }

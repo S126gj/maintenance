@@ -61,6 +61,7 @@
         <rly-sdk.version>1.0.4</rly-sdk.version>
         <xxljob.version>2.3.1</xxljob.version>
         <forest.version>1.5.23</forest.version>
+        <easy-excel.version>3.3.2</easy-excel.version>
         <poi.version>5.2.3</poi.version>
         <google.zxing.javase>3.3.0</google.zxing.javase>
         <google.zxing.core>3.3.0</google.zxing.core>
@@ -331,10 +332,21 @@
                 <artifactId>forest-spring-boot-starter</artifactId>
                 <version>${forest.version}</version>
             </dependency>
+            <!--easy-excel-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easy-excel.version}</version>
+            </dependency>
             <!--poi-->
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
                 <version>${poi.version}</version>
             </dependency>
             <!-- elasticsearch -->
