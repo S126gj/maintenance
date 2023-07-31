@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class ExcelUtil {
             response.setContentType("application/force-download");
             response.setCharacterEncoding("utf-8");
             // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-            fileName = URLEncoder.encode(String.format("%s %s", fileName, LocalDateTime.now().toLocalDate().toString()), "UTF-8").replaceAll("\\+", "%20");
+            fileName = URLEncoder.encode(String.format("%s %s", fileName, LocalDate.now()), "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=" + fileName + ".xlsx");
             // 这里需要设置不关闭流
             EasyExcel.write(response.getOutputStream(), object).autoCloseStream(Boolean.FALSE).sheet("sheet1")

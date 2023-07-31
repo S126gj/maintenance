@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class EasyexcelTest {
     @Test
     public void write() {
         String path = "/Users/shenguoji/Downloads";
-        String fileName = String.format("%s %s.xlsx", "设备", LocalDateTime.now().toLocalDate().toString());
+        String fileName = String.format("%s %s.xlsx", "设备", LocalDate.now());
         ExcelUtil.download(path, fileName, data(), Machine.class);
     }
 
