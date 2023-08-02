@@ -15,12 +15,6 @@
 
 doc/layout 为布局，不需要可以自行删除 maintenance-system/src/main/java/com/device/system/column 下的所有代码
 
-> 若报错
-```
-Preview features are not enabled for com/device/system/JDK17Test (class file version 61.65535). Try running with '--enable-preview'
-```
-跳过maven的test即可
-
 > 需要注意，存入redis的实体类，其中LocalDate，LocalDateTime必须添加以下注解，否则会出现序列化报错
 
 ```

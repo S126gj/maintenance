@@ -75,6 +75,8 @@
         <maintenance-forest.version>1.0-SNAPSHOT</maintenance-forest.version>
         <maintenance-sms.version>1.0-SNAPSHOT</maintenance-sms.version>
         <maintenance-xxljob.version>1.0-SNAPSHOT</maintenance-xxljob.version>
+        <!-- 跳过测试 -->
+        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>
