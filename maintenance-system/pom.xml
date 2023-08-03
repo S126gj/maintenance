@@ -51,11 +51,6 @@
             <groupId>com.device</groupId>
             <artifactId>maintenance-xxljob</artifactId>
         </dependency>
-        <!--poi-->
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-        </dependency>
         <!--sharding-jdbc-->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
