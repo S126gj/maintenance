@@ -1,12 +1,19 @@
 dataSources:
   ds_0:
-    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
-    driverClassName: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://127.0.0.1:3306/maintenance?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/maintenance?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 11111111
-    maxPoolSize: 10
+    initialSize: 5   #连接池初始化连接数
+    minIdle: 3       #连接池最小连接数
+    maxActive: 20   #连接池最大连接数
+    maxWait: 5000
 rules:
+  - !SINGLE
+    tables:
+      - ds_0.*  # 加载该数据源的全部表
+    defaultDataSource: ds_0
   - !SHARDING
     tables: # 数据分片规则配置
       box_run: # 逻辑表名称
@@ -31,9 +38,3 @@ rules:
         type: SNOWFLAKE # 分布式序列算法类型
 props:
   sql-show: true
-mode:
-  type: Standalone
-  repository:
-    type: JDBC
-    props:
-      path: demo
