@@ -1,5 +1,7 @@
 # maintenance(设备维修)
 
+### SpringBoot 3.x + Satoken + JDK 17 + MybatisPlus 3.5.x + Redis 3.x + Minio 8.5.x + Elasticsearch 7.x + Xxl-job + Sharding-jdbc 5.4.x
+
 > 模块解析
 
 * maintenance-common: 公共模块
