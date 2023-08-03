@@ -18,7 +18,11 @@ doc/layout 为布局，不需要可以自行删除 maintenance-system/src/main/j
 > 需要注意，存入redis的实体类，其中LocalDate，LocalDateTime必须添加以下注解，否则会出现序列化报错
 
 ```
-@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+# LocalDate为 @JsonFormat(pattern = "yyyy-MM-dd")
+# LocalDateTime为 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 @JsonDeserialize(using = LocalDateTimeDeserializer.class)
 @JsonSerialize(using = LocalDateTimeSerializer.class)
 ```
+> 定时任务无法走租户模式，若为租户模式走定时任务，则需要手动传入租户id，或者直接在 DeviceTenantHandler 忽略此表
+
+> 若使用 sharding-jdbc 分表也需要直接在 DeviceTenantHandler 忽略此表

@@ -68,6 +68,9 @@
         <commons-fileupload>1.5</commons-fileupload>
         <easy-es.version>2.0.0-beta3</easy-es.version>
         <elasticsearch.version>7.14.0</elasticsearch.version>
+        <shardingsphere.version>5.4.0</shardingsphere.version>
+        <jaxb.version>2.3.1</jaxb.version>
+        <jaxb-core.version>2.3.0</jaxb-core.version>
         <maintenance-common.version>1.0-SNAPSHOT</maintenance-common.version>
         <maintenance-es.version>1.0-SNAPSHOT</maintenance-es.version>
         <maintenance-mbg.version>1.0-SNAPSHOT</maintenance-mbg.version>
@@ -372,6 +375,27 @@
                 <artifactId>elasticsearch</artifactId>
                 <version>${elasticsearch.version}</version>
             </dependency>
+            <!--sharding-jdbc-->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-core</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-core</artifactId>
+                <version>${jaxb-core.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -391,6 +415,7 @@
                     <include>**/*.xml</include>
                     <include>**/*.properties</include>
                     <include>**/*.yml</include>
+                    <include>**/*.yaml</include>
                     <include>**/*.db</include>
                     <include>**/*.txt</include>
                 </includes>

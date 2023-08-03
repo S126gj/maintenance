@@ -33,7 +33,7 @@ public class DeviceTenantHandler implements TenantLineHandler {
     /**
      * 需要过滤的表
      */
-    public static final List<String> IGNORE_TENANT_TABLES = Lists.newArrayList("tenant");
+    public static final List<String> IGNORE_TENANT_TABLES = Lists.newArrayList("tenant", "box_run");
 
     /**
      * 租户Id

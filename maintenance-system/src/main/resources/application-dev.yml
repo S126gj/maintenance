@@ -1,10 +1,7 @@
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/maintenance?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&stringtype=unspecified
-    username: root
-    password: 11111111
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:sharding/sharding-dev.yaml
   data:
     redis:
       host: 127.0.0.1
@@ -19,7 +16,7 @@ spring:
 file:
   # minio 文件上传
   minio:
-    url: http://localhost:9000
+    url: http://123.60.49.164:9000
     accessKey: minioadmin
     secretKey: minioadmin
     bucketName: maintenance
@@ -117,6 +114,6 @@ forest:
 # kibana 地址 http://123.60.49.164:5601
 easy-es:
   enable: true
-  address: localhost:9200
+  address: 123.60.49.164:9200
   username: elastic
-  password:
+  password: Q2NEUIKqTaaLUXCCe3qz

@@ -1,0 +1,39 @@
+dataSources:
+  ds_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/maintenance?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 11111111
+    maxPoolSize: 10
+rules:
+  - !SHARDING
+    tables: # 数据分片规则配置
+      box_run: # 逻辑表名称
+        actualDataNodes : ds_0.box_run_$->{0..7} # 由数据源名 + 表名组成（参考 Inline 语法规则）
+        tableStrategy: # 分表策略，同分库策略
+          standard: # 用于单分片键的标准分片场景
+            shardingColumn: id # 分片列名称
+            shardingAlgorithmName: box_run_inline # 分片算法名称
+        keyGenerateStrategy: # 分布式序列策略
+          column: id # 自增列名称，缺省表示不使用自增主键生成器
+          keyGeneratorName: snowflake # 分布式序列算法名称
+    # 分片算法配置
+    shardingAlgorithms:
+      box_run_inline: # 分片算法名称
+        type: INLINE # 分片算法类型
+        props: # 分片算法属性配置 t_user_$->{u_id % 8} 表示 t_user 表根据 u_id 模 8，而分成 8 张表，表名称为 t_user_0 到 t_user_7
+          algorithm-expression: box_run_$->{id % 8}
+
+    # 分布式序列算法配置
+    keyGenerators:
+      snowflake: # 分布式序列算法名称
+        type: SNOWFLAKE # 分布式序列算法类型
+props:
+  sql-show: true
+mode:
+  type: Standalone
+  repository:
+    type: JDBC
+    props:
+      path: demo
