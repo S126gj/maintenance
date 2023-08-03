@@ -19,9 +19,16 @@ doc/layout 为布局，不需要可以自行删除 maintenance-system/src/main/j
 
 > 需要注意，存入redis的实体类，其中LocalDate，LocalDateTime必须添加以下注解，否则会出现序列化报错
 
+LocalDate
 ```
-# LocalDate为 @JsonFormat(pattern = "yyyy-MM-dd")
-# LocalDateTime为 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+@JsonFormat(pattern = "yyyy-MM-dd")
+@JsonDeserialize(using = LocalDateDeserializer.class)
+@JsonSerialize(using = LocalDateSerializer.class)
+```
+
+LocalDateTime
+```
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 @JsonDeserialize(using = LocalDateTimeDeserializer.class)
 @JsonSerialize(using = LocalDateTimeSerializer.class)
 ```
