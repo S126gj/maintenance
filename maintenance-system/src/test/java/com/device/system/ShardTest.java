@@ -1,5 +1,6 @@
 package com.device.system;
 
+import cn.hutool.json.JSONUtil;
 import com.device.system.core.entity.BoxRun;
 import com.device.system.core.mapper.BoxRunMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
+/**
+ * 分表测试
+ * @Author: Guoji Shen
+ * @Date: 2023/8/02 13:08
+ */
 @Slf4j
 @SpringBootTest
 class ShardTest {
@@ -18,7 +25,7 @@ class ShardTest {
     private BoxRunMapper boxRunMapper;
 
     @Test
-    void test() {
+    void insert() {
         for (int i = 0; i < 1000; i++) {
             BoxRun boxRun = BoxRun.builder()
                 .boxCode("123")
@@ -32,6 +39,12 @@ class ShardTest {
                 .build();
             boxRunMapper.insert(boxRun);
         }
+    }
+
+    @Test
+    void query() {
+        List<BoxRun> boxRuns = boxRunMapper.selectList(null);
+        log.info("boxRuns:{}", JSONUtil.toJsonStr(boxRuns));
     }
 
 }
