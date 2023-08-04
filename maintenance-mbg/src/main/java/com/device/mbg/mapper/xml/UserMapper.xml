@@ -15,7 +15,7 @@
         where 1 = 1
         <include refid="selectCondition"/>
         GROUP BY u.id
-        order by u.gmt_create desc;
+        order by u.gmt_create desc
     </select>
 
     <sql id="selectCondition">
@@ -51,6 +51,6 @@
         <include refid="Base_Column_List" />
         from sys_user
         where id = #{id,jdbcType=VARCHAR}
-        order by gmt_create desc;
+        order by gmt_create desc
     </select>
 </mapper>
