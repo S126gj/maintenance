@@ -75,7 +75,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public User findById(String id) {
         User user = baseMapper.findById(id);
-        user.setRoleList(roleMenuService.getRoleListByUserId(user.getId()).stream().map(Role::getName).toList());
+        user.setRoleList(roleMenuService.getRoleListByUserId(user.getId()).stream().map(Role::getId).toList());
         return user;
     }
 

@@ -74,6 +74,10 @@ public class Menu implements Serializable {
     @TableField("type")
     private Integer type;
 
+    @Schema(description = "权限类型：0->目录；1->菜单；2->按钮（接口绑定权限）")
+    @TableField(exist = false)
+    private String typeDesc;
+
     @Schema(description = "前端资源路径")
     @TableField("component")
     private String component;
@@ -105,5 +109,15 @@ public class Menu implements Serializable {
         map.put("title", StringUtil.isNotBlank(title) ? title : null);
         map.put("icon", StringUtil.isNotBlank(icon) ? icon : null);
         return map;
+    }
+
+    public String getTypeDesc() {
+        String desc = null;
+        switch(getType()) {
+            case 0 -> desc = "目录";
+            case 1 -> desc = "菜单";
+            case 2 -> desc = "按钮";
+        }
+        return desc;
     }
 }
