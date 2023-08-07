@@ -60,7 +60,7 @@
         <tencentcloud-sdk.version>3.1.597</tencentcloud-sdk.version>
         <rly-sdk.version>1.0.4</rly-sdk.version>
         <xxljob.version>2.3.1</xxljob.version>
-        <forest.version>1.5.23</forest.version>
+        <forest.version>1.5.32</forest.version>
         <easy-excel.version>3.3.2</easy-excel.version>
         <poi.version>5.2.3</poi.version>
         <google.zxing.javase>3.3.0</google.zxing.javase>
@@ -334,7 +334,7 @@
             <!--forest-->
             <dependency>
                 <groupId>com.dtflys.forest</groupId>
-                <artifactId>forest-spring-boot-starter</artifactId>
+                <artifactId>forest-spring-boot3-starter</artifactId>
                 <version>${forest.version}</version>
             </dependency>
             <!--easy-excel-->
