@@ -60,6 +60,7 @@ public class LoginController {
         User user = userService.selectByTenantIdAndUserName(tenant.getId(), userLoginParam.getUsername());
         // 校验用户
         Checker.ifNullThrow(user, () -> Errors.BIZ.exception("用户不存在"));
+        Checker.ifThrow(user.getStatus().equals(0), () -> Errors.BIZ.exception("用户已被禁用"));
         // 校验密码
         Checker.ifNotThrow(SecureUtil.md5(userLoginParam.getPassword()).equals(user.getPassword()),
             () -> Errors.BIZ.exception(CommonCode.PASSWORD_VALID_ERROR));
