@@ -66,6 +66,8 @@ public class LoginController {
             () -> Errors.BIZ.exception(CommonCode.PASSWORD_VALID_ERROR));
         // 登录
         StpUtil.login(user.getId());
+        // 避免查询权限租户为null，这里先给租户赋值，下面会重新覆盖此key的缓存
+        redisUtils.set(getLoginCacheKey(), UserInfo.builder().tenantId(tenant.getId()).build());
         // 将用户信息放入缓存
         UserInfo userInfo = UserInfo.builder()
             .id(user.getId())
