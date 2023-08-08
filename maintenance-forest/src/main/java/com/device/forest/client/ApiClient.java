@@ -13,8 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @BaseRequest(
-    baseURL = "${apiUrl}",        // 默认域名
-    sslProtocol = "sslType"                 // 默认单向SSL协议(TLS)
+    baseURL = "${apiUrl}"        // 默认域名
 )
 public interface ApiClient {
 
