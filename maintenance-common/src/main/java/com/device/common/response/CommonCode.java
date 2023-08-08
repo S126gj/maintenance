@@ -99,6 +99,11 @@ public enum CommonCode implements ResultCode {
      */
     PASSWORD_VALID_ERROR(HttpStatus.UNAUTHORIZED.value(), "密码验证失败"),
 
+    /**
+     * token验证失败
+     */
+    TOKEN_VAILD_ERROR(500001, "token验证失败"),
+
     ;
 
     @Getter
