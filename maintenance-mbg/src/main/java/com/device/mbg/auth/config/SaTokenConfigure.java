@@ -76,7 +76,9 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                 // 用户登录
                 "/sso/**",
                 // 客户登录
-                "/customer/sso/**"
+                "/customer/sso/**",
+                // 对接接口
+                "/api/**"
             );
     }
 

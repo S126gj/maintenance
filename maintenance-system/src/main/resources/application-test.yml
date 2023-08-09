@@ -107,7 +107,7 @@ knife4j:
 forest:
   variables:
     # 可指定多个client
-    apiUrl: http://localhost
+    apiUrl: http://127.0.0.1:8899
 
 # elasticsearch
 # es-head连接路径: http://123.60.49.164:9200/?auth_user=elastic&auth_password=Q2NEUIKqTaaLUXCCe3qz
