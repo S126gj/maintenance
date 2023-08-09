@@ -40,6 +40,20 @@ CREATE TABLE `sys_layout_d`
     KEY              `idx_layout_id` (`layout_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='单据布局明细';
 
+DROP TABLE IF EXISTS sys_layout_user;
+CREATE TABLE `sys_layout_user`
+(
+    `id`           char(19) NOT NULL COMMENT 'id',
+    `tenant_id`    char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '租户id',
+    `user_id`    char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '用户id',
+    `content`      longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内容',
+    `gmt_create`   datetime                                                  DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `gmt_modified` datetime                                                  DEFAULT NULL COMMENT '修改时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY            `idx_tenant_id` (`tenant_id`) USING BTREE,
+    KEY            `idx_user_id` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户布局表';
+
 DROP TABLE IF EXISTS tenant;
 CREATE TABLE `tenant`
 (

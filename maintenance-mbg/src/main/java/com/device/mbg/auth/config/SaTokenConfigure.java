@@ -35,6 +35,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                     "/file/**",
                     "/combo/layout/**",
                     "/acl/layout/**",
+                    "/acl/layout-user/**",
                     "/menu/**",
                     "/role/**",
                     "/user/**",
