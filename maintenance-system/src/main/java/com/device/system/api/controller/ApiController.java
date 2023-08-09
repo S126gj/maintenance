@@ -29,7 +29,11 @@ public class ApiController {
     @GetMapping("/test")
     public R test(@Parameter(description = "用户id") @RequestParam(value = "userId") String userId,
         @Parameter(description = "测试") @RequestParam(value = "test") String test) {
-        SaSignUtil.checkRequest(SaHolder.getRequest());
+        try {
+            SaSignUtil.checkRequest(SaHolder.getRequest());
+        } catch (Exception e) {
+            return R.error("验签失败");
+        }
         log.info("[ApiController][test] userId[{}], test[{}]", userId, test);
         return R.ok().data("testSuccess    1");
     }
@@ -37,7 +41,11 @@ public class ApiController {
     @Operation(summary = "测试2")
     @GetMapping("/test2")
     public R test2() {
-        SaSignUtil.checkRequest(SaHolder.getRequest());
+        try {
+            SaSignUtil.checkRequest(SaHolder.getRequest());
+        } catch (Exception e) {
+            return R.error("验签失败");
+        }
         return R.ok().data("testSuccess    2");
     }
 }
