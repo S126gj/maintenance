@@ -31,34 +31,21 @@ public class SaTokenConfigure implements WebMvcConfigurer {
         registry.addInterceptor(new SaInterceptor(handle -> {
 
                 // 只有登录 user 用户才可以访问的接口
-                SaRouter.match("/file/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/combo/layout/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/acl/layout/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/menu/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/role/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/user/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/code/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/customer/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/dealer/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/dict/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/enum/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/machine/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/machine/monitor/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/machineSale/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/machineSalePart/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/part/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/repairApplication/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/repairAssignTask/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/repair/record/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/repairServe/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/repairServeEvaluation/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/serviceNet/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/serviceStaff/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/upload-record/**").check(r -> StpUtil.checkLogin());
-                SaRouter.match("/staff/**").check(r -> StpUtil.checkLogin());
+                SaRouter.match(
+                    "/file/**",
+                    "/combo/layout/**",
+                    "/acl/layout/**",
+                    "/menu/**",
+                    "/role/**",
+                    "/user/**",
+                    "/dict/**",
+                    "/machine/**"
+                ).check(r -> StpUtil.checkLogin());
 
                 // 只有登录 customer 客户才可以访问的接口
-                SaRouter.match("/customer-client/**").check(r -> StpCustomerUtil.checkLogin());
+                SaRouter.match(
+                    "/customer-client/**"
+                ).check(r -> StpCustomerUtil.checkLogin());
 
                 // 只有 user 用户与 customer 客户同时登录才可以访问的接口
                 // SaRouter.match("/art/getInfo").check(r -> {
