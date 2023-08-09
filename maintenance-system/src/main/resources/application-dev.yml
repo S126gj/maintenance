@@ -39,6 +39,9 @@ sa-token:
   token-style: tik
   # 是否输出操作日志
   is-log: true
+  sign:
+    # API 接口签名秘钥
+    secret-key: qwoeuidyaskqwhkdq
 
 # xxljob  此项目暂时未启用xxljob，如若需要可自行开启
 xxl:
