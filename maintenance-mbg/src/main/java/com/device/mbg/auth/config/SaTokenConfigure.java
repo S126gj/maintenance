@@ -62,20 +62,21 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 
             }))
             .addPathPatterns("/**")
-            // api接口文档
-            .excludePathPatterns("/favicon.ico")
-            .excludePathPatterns("/static/**")
-            .excludePathPatterns("/webjars/**")
-            .excludePathPatterns("/v3/api-docs/**")
-            .excludePathPatterns("/swagger-ui.html/**")
-            .excludePathPatterns("/doc.html/**")
-            // 租户
-            .excludePathPatterns("/tenant/**")
-            // 用户登录
-            .excludePathPatterns("/sso/**")
-            // 客户登录
-            .excludePathPatterns("/customer/sso/**")
-        ;
+            .excludePathPatterns(
+                // api接口文档
+                "/favicon.ico",
+                "/static/**",
+                "/webjars/**",
+                "/v3/api-docs/**",
+                "/swagger-ui.html/**",
+                "/doc.html/**",
+                // 租户
+                "/tenant/**",
+                // 用户登录
+                "/sso/**",
+                // 客户登录
+                "/customer/sso/**"
+            );
     }
 
     /**
