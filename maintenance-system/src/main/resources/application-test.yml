@@ -116,7 +116,7 @@ forest:
 # es-head连接路径: http://123.60.49.164:9200/?auth_user=elastic&auth_password=Q2NEUIKqTaaLUXCCe3qz
 # kibana 地址 http://123.60.49.164:5601
 easy-es:
-  enable: true
+  enable: true  # 需要注意的是，这里关闭easy-es只会让你的es mapper失效，代码极有可能报错，请仔细检查
   address: localhost:9200
   username: elastic
   password:
