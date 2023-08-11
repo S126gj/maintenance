@@ -88,7 +88,7 @@ public class LayoutServiceImpl extends ServiceImpl<LayoutMapper, Layout> impleme
         this.saveOrUpdate(entity);
         dto.setId(entity.getId());
         layoutDetailsService.save(dto);
-        redisUtils.del(getKey());
+        redisUtils.del(String.format("%s%s", CacheKey.LAYOUT, getKey()));
     }
 
     @Override
