@@ -113,7 +113,7 @@ public class LayoutServiceImpl extends ServiceImpl<LayoutMapper, Layout> impleme
         }
     }
 
-    public String getKey() {
-        return CacheKey.LAYOUT + StpUtil.getLoginId();
+    public String getKey(){
+        return  String.format("%s:", StpUtil.getLoginId());
     }
 }
