@@ -18,10 +18,9 @@ import java.util.List;
 public interface LayoutService extends IService<Layout> {
     /**
      * 获取显示列集合
-     * @param tableName
      * @return
      */
-    List<LayoutDTO> select(String tableName);
+    List<LayoutDTO> select();
 
     /**
      * 编辑

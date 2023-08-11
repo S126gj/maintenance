@@ -27,8 +27,8 @@ public class LayoutController {
 
     @Operation(summary = "查询显示列表")
     @GetMapping
-    public R query(@RequestParam(required = false) String name) {
-        return R.ok().data(layoutService.select(name));
+    public R query() {
+        return R.ok().data(layoutService.select());
     }
 
     @Operation(summary = "修改显示列表")

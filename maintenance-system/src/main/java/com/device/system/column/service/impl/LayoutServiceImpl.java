@@ -21,6 +21,7 @@ import com.device.system.column.service.mapStruct.LayoutMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,7 +50,8 @@ public class LayoutServiceImpl extends ServiceImpl<LayoutMapper, Layout> impleme
     private IRoleMenuService roleMenuService;
 
     @Override
-    public List<LayoutDTO> select(String name) {
+    @Cacheable(key = "#root.target.getKey()")
+    public List<LayoutDTO> select() {
         List<LayoutDTO> layoutDTOs = layoutMapping.toDto(baseMapper.selectList(new QueryWrapper()));
         List<LayoutDetailsDTO> layoutDetailsDTOs = layoutDetailsService.queryAllNoDocId();
         addLayout(layoutDTOs, layoutDetailsDTOs);
