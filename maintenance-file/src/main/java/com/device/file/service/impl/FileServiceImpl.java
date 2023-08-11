@@ -129,7 +129,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
 
 
     private void delCaches(){
-        redisUtils.del(getKey());
+        redisUtils.del(String.format("%s%s", CacheKey.FILE, getKey()));
     }
     public String getKey(){
         return  String.format("%s:", StpUtil.getLoginId());

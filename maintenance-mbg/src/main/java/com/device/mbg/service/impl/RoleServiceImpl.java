@@ -127,7 +127,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     private void delCaches(){
-        redisUtils.del(getKey());
+        redisUtils.del(String.format("%s%s", CacheKey.ROLE, getKey()));
     }
     public String getKey(){
         return  String.format("%s:", StpUtil.getLoginId());
