@@ -103,10 +103,10 @@ springdoc:
       packages-to-scan:
         - com.device.mbg.controller
         - com.device.file.controller
-        - com.device.system.column.controller
-        - com.device.system.core.controller
-        - com.device.system.staff.controller
-        - com.device.system.customer.controller
+        - com.device.core.column.controller
+        - com.device.core.core.controller
+        - com.device.core.staff.controller
+        - com.device.core.customer.controller
 # knife4j
 knife4j:
   enable: true

@@ -33,7 +33,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 
                 // 只有登录 user 用户才可以访问的接口
                 SaRouter.match(
-                    "/file/**",
+                    "/file/user/**",
                     "/combo/layout/**",
                     "/acl/layout/**",
                     "/acl/layout-user/**",
@@ -46,6 +46,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 
                 // 只有登录 customer 客户才可以访问的接口
                 SaRouter.match(
+                    "/file/customer/**",
                     "/customer-client/**"
                 ).check(r -> StpCustomerUtil.checkLogin());
 
@@ -56,11 +57,15 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                 // });
 
                 // 只需要登录 user 用户 和 customer 客户 任意一个，就能访问的接口：
-                // SaRouter.match("/art/getInfo").check(r -> {
-                //     if(StpUserUtil.isLogin() == false && StpCustomerUtil.isLogin() == false) {
-                //         throw new SaTokenException("请登录后再访问接口");
-                //     }
-                // });
+                SaRouter.match(
+                    "/file/delete",
+                    "/file/download",
+                    "/combo/layout/**"
+                ).check(r -> {
+                    if(StpUserUtil.isLogin() == false && StpCustomerUtil.isLogin() == false) {
+                        throw new SaTokenException("请登录后再访问接口");
+                    }
+                });
 
             }))
             .addPathPatterns("/**")
