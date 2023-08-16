@@ -18,6 +18,9 @@ import com.device.file.entity.enums.FileTypeEnum;
 import com.device.file.entity.vo.UploadRecordVO;
 import com.device.file.mapper.FileMapper;
 import com.device.file.service.IFileService;
+import com.device.mbg.auth.util.StpCustomerUtil;
+import com.device.mbg.auth.util.StpUserUtil;
+import com.device.mbg.domain.vo.CustomerInfo;
 import com.device.mbg.domain.vo.UserInfo;
 import com.device.mbg.utils.PageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -55,10 +58,36 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
         return PageUtil.toPage(iPage);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
-    public String uploadImg(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
-        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.TENANT, StpUtil.getLoginId()));
+    public String uploadImgCustomer(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
+        CustomerInfo userInfo = (CustomerInfo) redisUtils.get(String.format("%s%s", CacheKey.CUSTOMER_TENANT, StpCustomerUtil.getLoginId()));
+        File file = uploadImg(multipartFile, resouceType, userInfo.getName());
+        return file.getId();
+    }
+
+    @Override
+    public String uploadFileCustomer(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
+        CustomerInfo userInfo = (CustomerInfo) redisUtils.get(String.format("%s%s", CacheKey.CUSTOMER_TENANT, StpCustomerUtil.getLoginId()));
+        File file = uploadFile(multipartFile, resouceType, userInfo.getName());
+        return file.getId();
+    }
+
+    @Override
+    public String uploadImgUser(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
+        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.USER_TENANT, StpUserUtil.getLoginId()));
+        File file = uploadImg(multipartFile, resouceType, userInfo.getUsername());
+        return file.getId();
+    }
+
+    @Override
+    public String uploadFileUser(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
+        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.USER_TENANT, StpUserUtil.getLoginId()));
+        File file = uploadFile(multipartFile, resouceType, userInfo.getUsername());
+        return file.getId();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public File uploadImg(MultipartFile multipartFile, FileResouceTypeEnum resouceType, String uploadMan) {
         String path = minioService.uploadJpeg(multipartFile);
         File file = File.builder()
             .path(path)
@@ -67,17 +96,14 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
             .fileType(multipartFile.getContentType())
             .type(FileTypeEnum.JPEG)
             .name(multipartFile.getOriginalFilename())
-            .uploadMan(userInfo.getUsername())
+            .uploadMan(uploadMan)
             .build();
         baseMapper.insert(file);
-        delCaches();
-        return file.getId();
+        return file;
     }
 
     @Transactional(rollbackFor = Exception.class)
-    @Override
-    public String uploadFile(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
-        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.TENANT, StpUtil.getLoginId()));
+    public File uploadFile(MultipartFile multipartFile, FileResouceTypeEnum resouceType, String uploadMan) {
         String path = minioService.uploadFile(multipartFile);
         File file = File.builder()
             .path(path)
@@ -86,12 +112,10 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
             .fileType(multipartFile.getContentType())
             .type(FileTypeEnum.getFileTypeByType(multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".")+ 1)))
             .name(multipartFile.getOriginalFilename())
-            .uploadMan(userInfo.getUsername())
+            .uploadMan(uploadMan)
             .build();
-        log.info("[FileServiceImpl][uploadFile] ");
         baseMapper.insert(file);
-        delCaches();
-        return file.getId();
+        return file;
     }
 
     public static void main(String[] args) {
@@ -132,6 +156,6 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
         redisUtils.del(String.format("%s%s", CacheKey.FILE, getKey()));
     }
     public String getKey(){
-        return  String.format("%s:", StpUtil.getLoginId());
+        return  String.format("%s:", StpUserUtil.getLoginId());
     }
 }

@@ -5,6 +5,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.json.JSONUtil;
 import com.device.common.utils.StringUtil;
 import com.device.mbg.auth.util.StpCustomerUtil;
+import com.device.mbg.auth.util.StpUserUtil;
 import com.device.mbg.domain.entity.Menu;
 import com.device.mbg.domain.entity.Role;
 import com.device.mbg.service.IRoleMenuService;
@@ -32,7 +33,7 @@ public class StpInterfaceHandler implements StpInterface {
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
         List<String> permissionList = new ArrayList<>();
-        if (StpUtil.getLoginType().equals(loginType)) {
+        if (StpUserUtil.getLoginType().equals(loginType)) {
             List<Menu> menuList = roleMenuService.getMenuListByUserId(loginId.toString());
             // 过滤出不为空的权限
             permissionList = menuList.stream().map(Menu::getPermission).filter(StringUtil::isNotBlank).collect(Collectors.toList());
@@ -47,7 +48,7 @@ public class StpInterfaceHandler implements StpInterface {
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
         List<String> roleNameList = new ArrayList<>();
-        if (StpUtil.getLoginType().equals(loginType)) {
+        if (StpUserUtil.getLoginType().equals(loginType)) {
             List<Role> roleList = roleMenuService.getRoleListByUserId(loginId.toString());
             roleNameList = roleList.stream().map(Role::getName).collect(Collectors.toList());
             log.info("[StpInterfaceImpl][getRoleList] 用户 roleNameList:{}", JSONUtil.toJsonStr(roleNameList));

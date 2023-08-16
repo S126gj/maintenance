@@ -12,6 +12,7 @@ import com.device.common.constanst.CacheKey;
 import com.device.common.exception.Checker;
 import com.device.common.exception.Errors;
 import com.device.common.utils.RedisUtils;
+import com.device.mbg.auth.util.StpUserUtil;
 import com.device.mbg.domain.criteria.RoleCriteria;
 import com.device.mbg.domain.entity.Menu;
 import com.device.mbg.domain.entity.Role;
@@ -130,6 +131,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         redisUtils.del(String.format("%s%s", CacheKey.ROLE, getKey()));
     }
     public String getKey(){
-        return  String.format("%s:", StpUtil.getLoginId());
+        return  String.format("%s:", StpUserUtil.getLoginId());
     }
 }

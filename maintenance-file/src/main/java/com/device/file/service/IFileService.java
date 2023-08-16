@@ -28,18 +28,36 @@ public interface IFileService extends IService<File> {
     Map<String, Object> queryAll(UploadRecordCriteria criteria, Page page);
 
     /**
-     * 上传图片
-     * @param multipartFile
+     * 客户上传图片
+     * @param file
+     * @param resouceType
      * @return
      */
-    String uploadImg(MultipartFile multipartFile, FileResouceTypeEnum resouceType);
+    String uploadImgCustomer(MultipartFile file, FileResouceTypeEnum resouceType);
 
     /**
-     * 上传文件
-     * @param multipartFile
+     * 客户上传文件
+     * @param file
+     * @param resouceType
      * @return
      */
-    String uploadFile(MultipartFile multipartFile, FileResouceTypeEnum resouceType);
+    String uploadFileCustomer(MultipartFile file, FileResouceTypeEnum resouceType);
+
+    /**
+     * 用户上传图片
+     * @param file
+     * @param resouceType
+     * @return
+     */
+    String uploadImgUser(MultipartFile file, FileResouceTypeEnum resouceType);
+
+    /**
+     * 用户上传文件
+     * @param file
+     * @param resouceType
+     * @return
+     */
+    String uploadFileUser(MultipartFile file, FileResouceTypeEnum resouceType);
 
     /**
      * 删除文件

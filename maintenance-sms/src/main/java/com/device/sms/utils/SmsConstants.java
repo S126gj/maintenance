@@ -13,6 +13,24 @@ import javax.annotation.PostConstruct;
 @Component
 public class SmsConstants {
 
+    /*------------------------------阿里云------------------------------*/
+    @Value("${sms.ali.accessKeyId}")
+    private String ALI_SMS_ACCESS_KEY_ID;
+    public static String ALI_ACCESS_KEY_ID;
+    @Value("${sms.ali.accessKeySecret}")
+    private String ALI_SMS_ACCESS_KEY_SECRET;
+    public static String ALI_ACCESS_KEY_SECRET;
+    @Value("${sms.ali.endpoint}")
+    private String ALI_SMS_ENDPOINT;
+    public static String ALI_ENDPOINT;
+    @Value("${sms.ali.signName}")
+    private String ALI_SMS_SIGN_NAME;
+    public static String ALI_SIGN_NAME;
+    @Value("${sms.ali.loginVerifyTemplateId}")
+    private String ALI_SMS_LOGIN_VERIFY_TEMPLATEID;
+    public static String ALI_SIGN_LOGIN_VERIFY_TEMPLATEID;
+
+    /*------------------------------腾讯云------------------------------*/
     /**
      * SecretId、SecretKey 查询: https://console.cloud.tencent.com/cam/capi
      */
@@ -54,7 +72,7 @@ public class SmsConstants {
     private String TX_SMS_LOGIN_VERIFY_TEMPLATE_ID;
     public static String TX_LOGIN_VERIFY_TEMPLATE_ID;
 
-
+    /*------------------------------容联云------------------------------*/
     @Value("${sms.rly.serverIp}")
     private String RLY_SMS_SERVER_IP;
     public static String RLY_SERVER_IP;
@@ -85,6 +103,11 @@ public class SmsConstants {
      */
     @PostConstruct
     private void init() {
+        ALI_ACCESS_KEY_ID = ALI_SMS_ACCESS_KEY_ID;
+        ALI_ACCESS_KEY_SECRET = ALI_SMS_ACCESS_KEY_SECRET;
+        ALI_ENDPOINT = ALI_SMS_ENDPOINT;
+        ALI_SIGN_NAME = ALI_SMS_SIGN_NAME;
+        ALI_SIGN_LOGIN_VERIFY_TEMPLATEID = ALI_SMS_LOGIN_VERIFY_TEMPLATEID;
         TX_SECRET_ID = TX_SMS_SECRET_ID;
         TX_SECRET_KEY = TX_SMS_SECRET_KEY;
         TX_REGION = TX_SMS_REGION;

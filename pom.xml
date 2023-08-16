@@ -14,12 +14,12 @@
     <!-- 子模块 -->
     <modules>
         <module>maintenance-common</module>
+        <module>maintenance-core</module>
         <module>maintenance-es</module>
         <module>maintenance-mbg</module>
         <module>maintenance-file</module>
         <module>maintenance-forest</module>
         <module>maintenance-sms</module>
-        <module>maintenance-system</module>
         <module>maintenance-xxljob</module>
     </modules>
 
@@ -55,6 +55,7 @@
         <spring-data-common.version>3.0.5</spring-data-common.version>
         <sa-token.version>1.35.0.RC</sa-token.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <alibabacloud-dysmsapi.version>2.0.24</alibabacloud-dysmsapi.version>
         <!-- 腾讯sdk: maven仓库中显示的4.0.11是废弃版本，我们已经联系maven官方删除jar包，但maven索引无法清除，请勿使用; -->
         <tencentcloud-sdk.version>3.1.597</tencentcloud-sdk.version>
         <rly-sdk.version>1.0.4</rly-sdk.version>
@@ -311,6 +312,12 @@
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-redis-jackson</artifactId>
                 <version>${sa-token.version}</version>
+            </dependency>
+            <!-- 阿里云短信sdk -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>alibabacloud-dysmsapi20170525</artifactId>
+                <version>${alibabacloud-dysmsapi.version}</version>
             </dependency>
             <!-- 腾讯云短信sdk -->
             <dependency>

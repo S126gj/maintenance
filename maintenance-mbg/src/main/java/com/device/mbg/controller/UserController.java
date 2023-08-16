@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.device.common.constanst.CacheKey;
 import com.device.common.utils.R;
 import com.device.common.utils.RedisUtils;
+import com.device.mbg.auth.util.StpUserUtil;
 import com.device.mbg.domain.criteria.UserCriteria;
 import com.device.mbg.domain.dto.UserCreateParam;
 import com.device.mbg.domain.vo.UserInfo;
@@ -52,8 +53,8 @@ public class UserController {
     @Operation(summary = "获取用户信息")
     @GetMapping(value = "/getUserInfo")
     public R getUserInfo() {
-        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.TENANT, StpUtil.getLoginId()));
-        userInfo.setMenuList(menuService.treeListByUserId(StpUtil.getLoginId().toString()));
+        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.USER_TENANT, StpUserUtil.getLoginId()));
+        userInfo.setMenuList(menuService.treeListByUserId(StpUserUtil.getLoginId().toString()));
         return R.ok().data(userInfo);
     }
 

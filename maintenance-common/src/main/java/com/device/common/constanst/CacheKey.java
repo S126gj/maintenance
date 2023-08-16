@@ -14,12 +14,12 @@ public interface CacheKey {
     String PROJECT = "maintenance";
 
     /**
-     * 租户
+     * 用户租户
      */
-    String TENANT = PROJECT + ":" + "tenant:";
+    String USER_TENANT = PROJECT + ":" + "user:" + "tenant:";
 
     /**
-     * 用户租户
+     * 客户租户
      */
     String CUSTOMER_TENANT = PROJECT + ":" + "customer:" + "tenant:";
 

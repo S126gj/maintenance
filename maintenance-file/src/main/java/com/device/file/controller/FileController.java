@@ -33,17 +33,31 @@ public class FileController {
     @Autowired
     private IFileService fileService;
 
-    @Operation(summary = "图片上传")
-    @PostMapping(value = "/jpeg")
-    public R uploadImg(@RequestBody MultipartFile multipartFile, @RequestParam(required = false) FileResouceTypeEnum resouceType) {
-        String id = fileService.uploadImg(multipartFile, resouceType);
+    @Operation(summary = "客户图片上传")
+    @PostMapping(value = "/customer/jpeg")
+    public R uploadImgCustomer(@RequestBody MultipartFile file, @RequestParam(required = false) FileResouceTypeEnum resouceType) {
+        String id = fileService.uploadImgCustomer(file, resouceType);
         return R.ok().data(fileService.getById(id));
     }
 
-    @Operation(summary = "文件上传")
-    @PostMapping(value = "/save")
-    public R uploadFile(@RequestBody MultipartFile multipartFile, @RequestParam(required = false) FileResouceTypeEnum resouceType) {
-        String id = fileService.uploadFile(multipartFile, resouceType);
+    @Operation(summary = "客户文件上传")
+    @PostMapping(value = "/customer/save")
+    public R uploadFileCustomer(@RequestBody MultipartFile file, @RequestParam(required = false) FileResouceTypeEnum resouceType) {
+        String id = fileService.uploadFileCustomer(file, resouceType);
+        return R.ok().data(fileService.getById(id));
+    }
+
+    @Operation(summary = "前台图片上传")
+    @PostMapping(value = "/user/jpeg")
+    public R uploadImgUser(@RequestBody MultipartFile file, @RequestParam(required = false) FileResouceTypeEnum resouceType) {
+        String id = fileService.uploadImgUser(file, resouceType);
+        return R.ok().data(fileService.getById(id));
+    }
+
+    @Operation(summary = "前台文件上传")
+    @PostMapping(value = "/user/save")
+    public R uploadFileUser(@RequestBody MultipartFile file, @RequestParam(required = false) FileResouceTypeEnum resouceType) {
+        String id = fileService.uploadFileUser(file, resouceType);
         return R.ok().data(fileService.getById(id));
     }
 

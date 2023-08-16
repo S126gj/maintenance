@@ -21,6 +21,11 @@
             <groupId>com.device</groupId>
             <artifactId>maintenance-common</artifactId>
         </dependency>
+        <!-- 阿里云短信sdk -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>alibabacloud-dysmsapi20170525</artifactId>
+        </dependency>
         <!-- 腾讯云短信sdk -->
         <dependency>
             <groupId>com.tencentcloudapi</groupId>

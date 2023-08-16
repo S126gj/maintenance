@@ -6,6 +6,7 @@ import com.device.common.constanst.CacheKey;
 import com.device.common.utils.RedisUtils;
 import com.device.common.utils.SpringContextUtil;
 import com.device.mbg.auth.util.StpCustomerUtil;
+import com.device.mbg.auth.util.StpUserUtil;
 import com.device.mbg.domain.vo.UserInfo;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -44,9 +45,9 @@ public class DeviceTenantHandler implements TenantLineHandler {
         // 从缓存中取出当前请求的租户ID，通过解析器注入到SQL中。
         RedisUtils redisUtils = SpringContextUtil.getBean(RedisUtils.class);
         String tenantId = null;
-        if (StpUtil.isLogin()) {
+        if (StpUserUtil.isLogin()) {
             // user登录，从user登录逻辑内获取租户id
-            UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.TENANT, StpUtil.getLoginId()));
+            UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.USER_TENANT, StpUserUtil.getLoginId()));
             tenantId = Optional.ofNullable(userInfo).map(UserInfo::getTenantId).orElse(null);
             log.info("用户操作，当前租户为:{}", tenantId);
         } else if (StpCustomerUtil.isLogin()) {

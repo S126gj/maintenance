@@ -9,6 +9,7 @@ import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
 import com.device.common.utils.R;
 import com.device.mbg.auth.util.StpCustomerUtil;
+import com.device.mbg.auth.util.StpUserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +42,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                     "/user/**",
                     "/dict/**",
                     "/machine/**"
-                ).check(r -> StpUtil.checkLogin());
+                ).check(r -> StpUserUtil.checkLogin());
 
                 // 只有登录 customer 客户才可以访问的接口
                 SaRouter.match(
@@ -50,13 +51,13 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 
                 // 只有 user 用户与 customer 客户同时登录才可以访问的接口
                 // SaRouter.match("/art/getInfo").check(r -> {
-                //     StpUtil.checkLogin();
+                //     StpUserUtil.checkLogin();
                 //     StpCustomerUtil.checkLogin();
                 // });
 
                 // 只需要登录 user 用户 和 customer 客户 任意一个，就能访问的接口：
                 // SaRouter.match("/art/getInfo").check(r -> {
-                //     if(StpUtil.isLogin() == false && StpCustomerUtil.isLogin() == false) {
+                //     if(StpUserUtil.isLogin() == false && StpCustomerUtil.isLogin() == false) {
                 //         throw new SaTokenException("请登录后再访问接口");
                 //     }
                 // });

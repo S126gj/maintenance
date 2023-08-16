@@ -1,0 +1,55 @@
+package com.device.mbg.domain.vo;
+
+import cn.hutool.core.collection.CollUtil;
+import com.device.common.constanst.Constanst;
+import com.device.mbg.domain.dto.MenuNode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * 用户详情
+ * @Author: Guoji Shen
+ * @Date: 2023/6/30 08:53
+ */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class CustomerInfo implements Serializable {
+
+    @Schema(description = "客户id")
+    private String id;
+
+    @Schema(description = "客户姓名")
+    private String name;
+
+    @Schema(description = "头像")
+    private String icon;
+
+    @Schema(description = "是否为管理员")
+    private boolean admin;
+
+    @Schema(description = "权限")
+    private List<String> permission;
+
+    @Schema(description = "角色")
+    private List<String> roleList;
+
+    @Schema(description = "菜单")
+    private List<MenuNode> menuList;
+
+    public boolean isAdmin() {
+        if (CollUtil.isNotEmpty(roleList)) {
+            for (String role : roleList) {
+                if (Constanst.ADMIN.equals(role)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
