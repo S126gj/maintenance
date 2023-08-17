@@ -126,8 +126,6 @@ forest:
     apiUrl: http://127.0.0.1:8899
 
 # elasticsearch
-# es-head连接路径: http://123.60.49.164:9200/?auth_user=elastic&auth_password=Q2NEUIKqTaaLUXCCe3qz
-# kibana 地址 http://123.60.49.164:5601
 easy-es:
   enable: false  # 需要注意的是，这里关闭easy-es只会让你的es mapper失效，代码极有可能报错，请仔细检查
   address: localhost:9200
