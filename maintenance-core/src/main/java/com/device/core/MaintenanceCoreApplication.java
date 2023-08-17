@@ -19,10 +19,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ForestScan(basePackages = "com.device.forest")
 @ComponentScan(basePackages = {"org.dromara.easyes.starter", "com.device", "com.device.core"},
     excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = EasyEsConfigProperties.class))  // springboot3需要添加此注解过滤easy-es依赖
-public class MaintenanceSystemApplication {
+public class MaintenanceCoreApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MaintenanceSystemApplication.class, args);
+        SpringApplication.run(MaintenanceCoreApplication.class, args);
     }
 
 }

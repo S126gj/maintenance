@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>com.device</groupId>
-    <artifactId>maintenance-system</artifactId>
+    <artifactId>maintenance-core</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>maintenance-system</name>
-    <description>maintenance-system</description>
+    <name>maintenance-core</name>
+    <description>maintenance-core</description>
 
     <properties>
 
@@ -96,7 +96,7 @@
                             <useUniqueVersions>false</useUniqueVersions>
                             <classpathPrefix>lib/</classpathPrefix>
                             <!-- 主方法类 -->
-                            <mainClass>com.device.MaintenanceSystemApplication</mainClass>
+                            <mainClass>com.device.core.MaintenanceCoreApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
