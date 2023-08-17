@@ -1,7 +1,13 @@
 spring:
   datasource:
-    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
-    url: jdbc:shardingsphere:classpath:sharding/sharding-test.yaml
+    #    # 开启分表模式
+    #    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    #    url: jdbc:shardingsphere:classpath:sharding/sharding-test.yaml
+    db-type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/maintenance?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&stringtype=unspecified
+    username: root
+    password: 123456
   data:
     redis:
       host: 127.0.0.1
