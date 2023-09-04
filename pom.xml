@@ -48,7 +48,7 @@
         <spring.freemarker.version>2.6.6</spring.freemarker.version>
         <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
         <minio.version>8.5.2</minio.version>
-        <servlet-api.version>4.0.1</servlet-api.version>
+        <servlet-api.version>6.0.0</servlet-api.version>
         <hutool.version>5.8.11</hutool.version>
         <pinyin.version>2.5.0</pinyin.version>
         <guava.version>30.1.1-jre</guava.version>
@@ -225,8 +225,8 @@
                 <version>${minio.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
                 <version>${servlet-api.version}</version>
             </dependency>
             <!-- redis -->
