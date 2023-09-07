@@ -1,5 +1,6 @@
 package com.device.core.user.controller;
 
+import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.crypto.SecureUtil;
 import com.device.common.constanst.CacheKey;
 import com.device.common.exception.Checker;
@@ -62,7 +63,7 @@ public class LoginController {
         Checker.ifNullThrow(user, () -> Errors.BIZ.exception("用户不存在"));
         Checker.ifThrow(user.getStatus().equals(0), () -> Errors.BIZ.exception("用户已被禁用"));
         // 校验密码
-        Checker.ifNotThrow(SecureUtil.md5(userLoginParam.getPassword()).equals(user.getPassword()),
+        Checker.ifNotThrow(BCrypt.checkpw(userLoginParam.getPassword(), user.getPassword()),
             () -> Errors.BIZ.exception(CommonCode.PASSWORD_VALID_ERROR));
         // 登录
         StpUserUtil.login(user.getId());

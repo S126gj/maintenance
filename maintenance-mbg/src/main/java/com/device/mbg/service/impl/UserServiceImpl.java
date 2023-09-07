@@ -1,5 +1,6 @@
 package com.device.mbg.service.impl;
 
+import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
@@ -51,7 +52,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = User.builder()
             .username(userRegisterParam.getUsername())
             .tenantId(userRegisterParam.getTenantId())
-            .password(SecureUtil.md5(userRegisterParam.getPassword()))
+            .password(BCrypt.hashpw(userRegisterParam.getPassword()))
             .phone(userRegisterParam.getPhone())
             .gender(userRegisterParam.getGender())
             .build();
@@ -85,7 +86,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 校验用户名是否重复
         checkUsername(user.getUsername());
         // 若密码为空则给默认密码
-        String password = StringUtil.isNotBlank(user.getPassword()) ? SecureUtil.md5(user.getPassword()) : SecureUtil.md5(
+        String password = StringUtil.isNotBlank(user.getPassword()) ? BCrypt.hashpw(user.getPassword()) : SecureUtil.md5(
             Constanst.DEFAULT_PASSWORD);
         user.setPassword(password);
         baseMapper.insert(user);
@@ -127,7 +128,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         password = Optional.ofNullable(password).orElse(Constanst.DEFAULT_PASSWORD);
         User user = baseMapper.selectById(id);
         Checker.ifNullThrow(user, () -> Errors.BIZ.exception("该用户不存在!"));
-        user.setPassword(SecureUtil.md5(password));
+        user.setPassword(BCrypt.hashpw(password));
         baseMapper.updateById(user);
     }
 

@@ -94,7 +94,7 @@ CREATE TABLE `sys_user`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=COMPACT COMMENT='用户表';
 
 INSERT INTO `sys_user`
-VALUES ('1', @tenant_id, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '123123123123', NULL, NULL, NULL, 1, 1, now(),
+VALUES ('1', @tenant_id, 'admin', '$2a$10$QSyoNvrANb9dHlwwz0eWDuiySeKSLkqMM5FXqMfYYw/eo.6GMkjRm', '123123123123', NULL, NULL, NULL, 1, 1, now(),
         now());
 
 DROP TABLE IF EXISTS sys_menu;
