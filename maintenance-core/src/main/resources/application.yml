@@ -38,4 +38,4 @@ mybatis-plus:
     # 输出日志到控制台
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 关闭日志输出
-    #  log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+#    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
