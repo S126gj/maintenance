@@ -10,10 +10,10 @@ DROP TABLE IF EXISTS sys_layout;
 CREATE TABLE `sys_layout`
 (
     `id`        char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'id layout_id',
-    `tenant_id` char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci     DEFAULT NULL COMMENT '租户id',
+    `tenant_id` char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci     NOT NULL COMMENT '租户id',
     `name`      varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '单据名称',
-    PRIMARY KEY (`id`) USING BTREE,
-    KEY         `idx_id` (`id`) USING BTREE
+    PRIMARY KEY (`id`, `tenant_id`) USING BTREE,
+    KEY         `idx_tenant_id` (`tenant_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='单据布局表';
 
 DROP TABLE IF EXISTS sys_layout_d;
@@ -37,7 +37,8 @@ CREATE TABLE `sys_layout_d`
     `sortable`       bit(1)                                                         DEFAULT b'0' COMMENT '是否前端排序',
     PRIMARY KEY (`id`) USING BTREE,
     KEY              `idx_id` (`id`) USING BTREE,
-    KEY              `idx_layout_id` (`layout_id`) USING BTREE
+    KEY              `idx_layout_id` (`layout_id`) USING BTREE,
+    KEY              `idx_tenant_id` (`tenant_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='单据布局明细';
 
 DROP TABLE IF EXISTS sys_layout_user;
@@ -57,21 +58,24 @@ CREATE TABLE `sys_layout_user`
 DROP TABLE IF EXISTS tenant;
 CREATE TABLE `tenant`
 (
-    `id`           char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci    NOT NULL COMMENT 'id',
-    `name`         varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '名称',
-    `begin_date`   datetime                                                      DEFAULT NULL COMMENT '开始日期',
-    `end_date`     datetime                                                      DEFAULT NULL COMMENT '到期日期',
-    `instance_id`  varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '工厂实例id',
-    `license`      varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '授权信息',
-    `gmt_create`   datetime                                                      DEFAULT NULL COMMENT '创建日期',
-    `gmt_modified` datetime                                                      DEFAULT NULL COMMENT '修改日期',
+    `id`            char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci    NOT NULL COMMENT 'id',
+    `name`          varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '名称',
+    `begin_date`    datetime DEFAULT NULL COMMENT '开始日期',
+    `end_date`      datetime DEFAULT NULL COMMENT '到期日期',
+    `instance_code` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '工厂实例编号',
+    `license`       text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '授权信息',
+    `enable`        bit(1)   DEFAULT b'1' COMMENT '启用:0->停用;1->启用;',
+    `max_user`      int      DEFAULT '0' COMMENT '并发用户数',
+    `gmt_create`    datetime DEFAULT NULL COMMENT '创建日期',
+    `gmt_modified`  datetime DEFAULT NULL COMMENT '修改日期',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY            `idx_name` (`name`) USING BTREE,
-    KEY            `idx_gmt_create` (`gmt_create`) USING BTREE
+    KEY             `idx_name` (`name`) USING BTREE,
+    KEY             `idx_instance_code` (`instance_code`) USING BTREE,
+    KEY             `idx_gmt_create` (`gmt_create`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=COMPACT COMMENT='租户表';
 
 INSERT INTO `tenant`
-VALUES (@tenant_id, '测试', '2022-06-28 09:49:05', '2099-06-28 09:49:12', '123', NULL, now(), now());
+VALUES (@tenant_id, '测试', '2022-06-28 09:49:05', '2099-06-28 09:49:12', '123', NULL, 1, 0, now(), now());
 
 DROP TABLE IF EXISTS sys_user;
 CREATE TABLE `sys_user`
@@ -102,7 +106,7 @@ CREATE TABLE `sys_menu`
 (
     `id`           char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'ID',
     `pid`          char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci          DEFAULT NULL COMMENT '父级ID',
-    `tenant_id`    char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci          DEFAULT NULL COMMENT '租户id',
+    `tenant_id`    char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '租户id',
     `title`        varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL COMMENT '菜单名称',
     `sort`         int                                                                DEFAULT NULL COMMENT '菜单排序',
     `name`         varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL COMMENT '前端名称',
@@ -114,8 +118,7 @@ CREATE TABLE `sys_menu`
     `hidden`       int                                                       NOT NULL DEFAULT '0' COMMENT '是否隐藏 0-否 1-是',
     `gmt_create`   datetime                                                           DEFAULT NULL COMMENT '创建时间',
     `gmt_modified` datetime                                                           DEFAULT NULL COMMENT '修改时间',
-    PRIMARY KEY (`id`) USING BTREE,
-    KEY            `idx_tenant_id` (`tenant_id`) USING BTREE,
+    PRIMARY KEY (`id`, `tenant_id`) USING BTREE,
     KEY            `index_pid` (`pid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
