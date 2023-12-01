@@ -143,6 +143,15 @@ easy-es:
   address: localhost:9200
   username: elastic
   password:
+  banner: false
+  global-config:
+    # 关闭dsl日志
+    print-dsl: false
+logging:
+  level:
+    org:
+      # 关闭es日志
+      elasticsearch: OFF
 
 # rsa 密钥
 rsa:
