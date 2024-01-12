@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS sys_layout;
 CREATE TABLE `sys_layout`
 (
     `id`        char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'id layout_id',
-    `tenant_id` char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci     NOT NULL COMMENT '租户id',
+    `tenant_id` char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '租户id',
     `name`      varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '单据名称',
     PRIMARY KEY (`id`, `tenant_id`) USING BTREE,
     KEY         `idx_tenant_id` (`tenant_id`) USING BTREE
@@ -46,7 +46,7 @@ CREATE TABLE `sys_layout_user`
 (
     `id`           char(19) NOT NULL COMMENT 'id',
     `tenant_id`    char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '租户id',
-    `user_id`    char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '用户id',
+    `user_id`      char(19) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '用户id',
     `content`      longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内容',
     `gmt_create`   datetime                                                  DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `gmt_modified` datetime                                                  DEFAULT NULL COMMENT '修改时间',
@@ -98,7 +98,8 @@ CREATE TABLE `sys_user`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=COMPACT COMMENT='用户表';
 
 INSERT INTO `sys_user`
-VALUES ('1', @tenant_id, 'admin', '$2a$10$QSyoNvrANb9dHlwwz0eWDuiySeKSLkqMM5FXqMfYYw/eo.6GMkjRm', '123123123123', NULL, NULL, NULL, 1, 1, now(),
+VALUES ('1', @tenant_id, 'admin', '$2a$10$QSyoNvrANb9dHlwwz0eWDuiySeKSLkqMM5FXqMfYYw/eo.6GMkjRm', '123123123123', NULL,
+        NULL, NULL, 1, 1, now(),
         now());
 
 DROP TABLE IF EXISTS sys_menu;
@@ -113,6 +114,7 @@ CREATE TABLE `sys_menu`
     `path`         varchar(100)                                                       DEFAULT NULL COMMENT '前端路径',
     `icon`         varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL COMMENT '前端图标',
     `permission`   varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL COMMENT '权限标识',
+    `create`       bit(1)                                                    NOT NULL DEFAULT b'0' COMMENT '是否外链：0->否；1->是；',
     `type`         int                                                       NOT NULL COMMENT '权限类型：0->目录；1->菜单；2->按钮（接口绑定权限）',
     `component`    varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci      DEFAULT NULL COMMENT '前端资源路径',
     `hidden`       int                                                       NOT NULL DEFAULT '0' COMMENT '是否隐藏 0-否 1-是',
@@ -123,64 +125,64 @@ CREATE TABLE `sys_menu`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
 INSERT INTO `sys_menu`
-VALUES ('10', '8', @tenant_id, '设备销售', 9, 'EquipmentSales', 'EquipmentSales', 'el-icon-money', '设备销售', 1,
+VALUES ('10', '8', @tenant_id, '设备销售', 9, 'EquipmentSales', 'EquipmentSales', 'el-icon-money', '设备销售', 0, 1,
         'BasicInformation/EquipmentSales/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
 VALUES ('11', '8', @tenant_id, '经销商管理', 10, 'DealerManagement', 'DealerManagement', 'el-icon-coordinate',
-        '经销商管理', 1, 'BasicInformation/DealerManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
+        '经销商管理', 0, 1, 'BasicInformation/DealerManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('12', '8', @tenant_id, '客户管理', 11, 'CustomerManagement', 'CustomerManagement', 'el-icon-user', '客户管理',
+VALUES ('12', '8', @tenant_id, '客户管理', 11, 'CustomerManagement', 'CustomerManagement', 'el-icon-user', '客户管理', 0,
         1, 'BasicInformation/CustomerManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('14', '8', @tenant_id, '角色管理', 13, 'Roles', 'Roles', 'el-icon-s-custom', '角色管理', 1,
+VALUES ('14', '8', @tenant_id, '角色管理', 13, 'Roles', 'Roles', 'el-icon-s-custom', '角色管理', 0, 1,
         'BasicInformation/Roles/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('15', '8', @tenant_id, '用户管理', 14, 'UserManagement', 'UserManagement', 'el-icon-user-solid', '用户管理', 1,
+VALUES ('15', '8', @tenant_id, '用户管理', 14, 'UserManagement', 'UserManagement', 'el-icon-user-solid', '用户管理', 0, 1,
         'BasicInformation/UserManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('16', '8', @tenant_id, '系统日志', 15, 'SystemLog', 'SystemLog', 'el-icon-date', '系统日志', 1,
+VALUES ('16', '8', @tenant_id, '系统日志', 15, 'SystemLog', 'SystemLog', 'el-icon-date', '系统日志', 0, 1,
         'BasicInformation/SystemLog/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('17', '8', @tenant_id, '系统设置', 16, 'SystemSettings', 'SystemSettings', 'el-icon-setting', '系统设置', 1,
+VALUES ('17', '8', @tenant_id, '系统设置', 16, 'SystemSettings', 'SystemSettings', 'el-icon-setting', '系统设置', 0, 1,
         'BasicInformation/SystemSettings/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('18', '8', '11', '文件信息', 17, 'FileInfo', 'FileInfo', 'el-icon-info', '文件信息', 1,
+VALUES ('18', '8', '11', '文件信息', 17, 'FileInfo', 'FileInfo', 'el-icon-info', '文件信息', 0, 1,
         'BasicInformation/FileInfo/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
 VALUES ('19', '8', @tenant_id, '配件管理', 18, 'AccessoryManagement', 'AccessoryManagement', 'el-icon-connection',
-        '配件管理', 1, 'BasicInformation/AccessoryManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
+        '配件管理', 0, 1, 'BasicInformation/AccessoryManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('2', '0', @tenant_id, '维修管理', 1, 'maintenance', '/maintenance', 'el-icon-s-help', '维修管理', 0, 'Layout',
+VALUES ('2', '0', @tenant_id, '维修管理', 1, 'maintenance', '/maintenance', 'el-icon-s-help', '维修管理', 0, 0, 'Layout',
         0, '2023-06-29 09:35:01', '2023-06-29 09:35:01');
 INSERT INTO `sys_menu`
-VALUES ('20', '8', @tenant_id, '服务网点', 19, 'ServiceNetwork', 'ServiceNetwork', 'el-icon-position', '服务网点', 1,
+VALUES ('20', '8', @tenant_id, '服务网点', 19, 'ServiceNetwork', 'ServiceNetwork', 'el-icon-position', '服务网点', 0, 1,
         'BasicInformation/ServiceNetwork/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('21', '8', @tenant_id, '服务人员', 20, 'ServiceStaff', 'ServiceStaff', 'el-icon-s-custom', '服务人员', 1,
+VALUES ('21', '8', @tenant_id, '服务人员', 20, 'ServiceStaff', 'ServiceStaff', 'el-icon-s-custom', '服务人员', 0, 1,
         'BasicInformation/ServiceStaff/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('22', '8', @tenant_id, '字典管理', 21, 'DictionaryManaged', 'DictionaryManaged', 'el-icon-folder', '字典管理',
+VALUES ('22', '8', @tenant_id, '字典管理', 21, 'DictionaryManaged', 'DictionaryManaged', 'el-icon-folder', '字典管理', 0,
         1, 'BasicInformation/DictionaryManaged/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('3', '2', @tenant_id, '远程诊断', 2, 'RemoteDiagnosis', 'RemoteDiagnosis', 'el-icon-bell', '远程诊断', 1,
+VALUES ('3', '2', @tenant_id, '远程诊断', 2, 'RemoteDiagnosis', 'RemoteDiagnosis', 'el-icon-bell', '远程诊断', 0, 1,
         'maintenance/RemoteDiagnosis/index', 0, '2023-06-29 09:35:01', '2023-06-29 09:35:01');
 INSERT INTO `sys_menu`
-VALUES ('4', '2', @tenant_id, '报修管理', 3, 'RepairManagement', 'RepairManagement', 'table', '报修管理', 1,
+VALUES ('4', '2', @tenant_id, '报修管理', 3, 'RepairManagement', 'RepairManagement', 'table', '报修管理', 0, 1,
         'maintenance/RepairManagement/index', 0, '2023-06-29 09:35:01', '2023-06-29 09:35:01');
 INSERT INTO `sys_menu`
-VALUES ('5', '2', @tenant_id, '服务单', 4, 'ServiceList', 'ServiceList', 'el-icon-document', '服务单', 1,
+VALUES ('5', '2', @tenant_id, '服务单', 4, 'ServiceList', 'ServiceList', 'el-icon-document', '服务单', 0, 1,
         'maintenance/ServiceList/index', 0, '2023-06-29 09:35:01', '2023-06-29 09:35:01');
 INSERT INTO `sys_menu`
-VALUES ('6', '2', @tenant_id, '派工单', 5, 'DispatchList', 'DispatchList', 'el-icon-user', '派工单', 1,
+VALUES ('6', '2', @tenant_id, '派工单', 5, 'DispatchList', 'DispatchList', 'el-icon-user', '派工单', 0, 1,
         'maintenance/DispatchList/index', 0, '2023-06-29 09:35:01', '2023-06-29 09:35:01');
 INSERT INTO `sys_menu`
-VALUES ('7', '2', @tenant_id, '服务审核', 6, 'ServiceReview', 'ServiceReview', 'tree', '服务审核', 1,
+VALUES ('7', '2', @tenant_id, '服务审核', 6, 'ServiceReview', 'ServiceReview', 'tree', '服务审核', 0, 1,
         'maintenance/ServiceReview/index', 0, '2023-06-29 09:35:01', '2023-06-29 09:35:01');
 INSERT INTO `sys_menu`
-VALUES ('8', '0', @tenant_id, '基础信息', 7, 'BasicInformation', '/BasicInformation', 'el-icon-reading', '基础信息', 0,
+VALUES ('8', '0', @tenant_id, '基础信息', 7, 'BasicInformation', '/BasicInformation', 'el-icon-reading', '基础信息', 0, 0,
         'Layout', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('9', '8', @tenant_id, '设备型号', 8, 'EquipmentModel', 'EquipmentModel', 'el-icon-info', '设备型号', 1,
+VALUES ('9', '8', @tenant_id, '设备型号', 8, 'EquipmentModel', 'EquipmentModel', 'el-icon-info', '设备型号', 0, 1,
         'BasicInformation/EquipmentModel/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 
 

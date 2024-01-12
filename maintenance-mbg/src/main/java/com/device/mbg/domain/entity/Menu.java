@@ -70,6 +70,10 @@ public class Menu implements Serializable {
     @TableField("permission")
     private String permission;
 
+    @Schema(description = "是否外链：false->否；true->是；")
+    @TableField("`create`")
+    private Boolean create;
+
     @Schema(description = "权限类型：0->目录；1->菜单；2->按钮（接口绑定权限）")
     @TableField("type")
     private Integer type;
