@@ -1,5 +1,6 @@
 package com.device.file.service.impl;
 
+import cn.dev33.satoken.dao.SaTokenDao;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -49,6 +50,8 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
     @Autowired
     private RedisUtils redisUtils;
     @Autowired
+    private SaTokenDao saTokenDao;
+    @Autowired
     private MinioService minioService;
 
     @Override
@@ -60,28 +63,28 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
 
     @Override
     public String uploadImgCustomer(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
-        CustomerInfo userInfo = (CustomerInfo) redisUtils.get(String.format("%s%s", CacheKey.CUSTOMER_TENANT, StpCustomerUtil.getLoginId()));
+        CustomerInfo userInfo = (CustomerInfo) saTokenDao.getObject(StpCustomerUtil.getLoginId().toString());
         File file = uploadImg(multipartFile, resouceType, userInfo.getName());
         return file.getId();
     }
 
     @Override
     public String uploadFileCustomer(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
-        CustomerInfo userInfo = (CustomerInfo) redisUtils.get(String.format("%s%s", CacheKey.CUSTOMER_TENANT, StpCustomerUtil.getLoginId()));
+        CustomerInfo userInfo = (CustomerInfo) saTokenDao.getObject(StpCustomerUtil.getLoginId().toString());
         File file = uploadFile(multipartFile, resouceType, userInfo.getName());
         return file.getId();
     }
 
     @Override
     public String uploadImgUser(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
-        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.USER_TENANT, StpUserUtil.getLoginId()));
+        UserInfo userInfo = (UserInfo) saTokenDao.getObject(StpUserUtil.getLoginId().toString());
         File file = uploadImg(multipartFile, resouceType, userInfo.getUsername());
         return file.getId();
     }
 
     @Override
     public String uploadFileUser(MultipartFile multipartFile, FileResouceTypeEnum resouceType) {
-        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.USER_TENANT, StpUserUtil.getLoginId()));
+        UserInfo userInfo = (UserInfo) saTokenDao.getObject(StpUserUtil.getLoginId().toString());
         File file = uploadFile(multipartFile, resouceType, userInfo.getUsername());
         return file.getId();
     }
@@ -116,11 +119,6 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
             .build();
         baseMapper.insert(file);
         return file;
-    }
-
-    public static void main(String[] args) {
-        String originName = "新建文本文档.txt";
-        System.out.println(originName.substring(originName.lastIndexOf(".")+ 1));
     }
 
     @Transactional(rollbackFor = Exception.class)

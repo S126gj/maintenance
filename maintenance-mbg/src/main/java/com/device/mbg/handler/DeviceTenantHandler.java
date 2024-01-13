@@ -1,5 +1,6 @@
 package com.device.mbg.handler;
 
+import cn.dev33.satoken.dao.SaTokenDao;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.device.common.constanst.CacheKey;
@@ -43,16 +44,17 @@ public class DeviceTenantHandler implements TenantLineHandler {
     @Override
     public Expression getTenantId() {
         // 从缓存中取出当前请求的租户ID，通过解析器注入到SQL中。
-        RedisUtils redisUtils = SpringContextUtil.getBean(RedisUtils.class);
+        SaTokenDao saTokenDao = SpringContextUtil.getBean(SaTokenDao.class);
         String tenantId = null;
         if (StpUserUtil.isLogin()) {
             // user登录，从user登录逻辑内获取租户id
-            UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.USER_TENANT, StpUserUtil.getLoginId()));
+            UserInfo userInfo = (UserInfo) saTokenDao.getObject(StpUserUtil.getLoginId().toString());
             tenantId = Optional.ofNullable(userInfo).map(UserInfo::getTenantId).orElse(null);
             log.info("用户操作，当前租户为:{}", tenantId);
         } else if (StpCustomerUtil.isLogin()) {
             // customer登录，从customer登录逻辑内获取租户id
-            tenantId = String.valueOf(redisUtils.get(String.format("%s%s", CacheKey.CUSTOMER_TENANT, StpCustomerUtil.getLoginId())));
+            UserInfo userInfo = (UserInfo) saTokenDao.getObject(StpUserUtil.getLoginId().toString());
+            tenantId = Optional.ofNullable(userInfo).map(UserInfo::getTenantId).orElse(null);
             log.info("客户端操作，当前租户为:{}", tenantId);
         }
         if (tenantId == null) {

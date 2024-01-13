@@ -1,5 +1,6 @@
 package com.device.core.user.controller;
 
+import cn.dev33.satoken.dao.SaTokenDao;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.crypto.SecureUtil;
 import com.device.common.constanst.CacheKey;
@@ -42,7 +43,7 @@ public class LoginController {
     @Autowired
     private IUserService userService;
     @Autowired
-    private RedisUtils redisUtils;
+    private SaTokenDao saTokenDao;
 
     @Operation(summary = "注册")
     @PostMapping(value = "/register")
@@ -68,7 +69,7 @@ public class LoginController {
         // 登录
         StpUserUtil.login(user.getId());
         // 避免查询权限租户为null，这里先给租户赋值，下面会重新覆盖此key的缓存
-        redisUtils.set(getLoginCacheKey(), UserInfo.builder().tenantId(tenant.getId()).build());
+        saTokenDao.setObject(StpUserUtil.getLoginId().toString(), UserInfo.builder().tenantId(tenant.getId()).build(), SaTokenDao.NEVER_EXPIRE);
         // 将用户信息放入缓存
         UserInfo userInfo = UserInfo.builder()
             .id(user.getId())
@@ -77,7 +78,7 @@ public class LoginController {
             .tenantId(tenant.getId())
             .permission(StpUserUtil.getPermissionList())
             .roleList(StpUserUtil.getRoleList()).build();
-        redisUtils.set(getLoginCacheKey(), userInfo);
+        saTokenDao.setObject(StpUserUtil.getLoginId().toString(), userInfo, SaTokenDao.NEVER_EXPIRE);
         // 返回token与用户信息
         return R.ok().data(UserLoginVO.builder()
             .token(StpUserUtil.getTokenValue())
@@ -90,19 +91,11 @@ public class LoginController {
     public R logout() {
         try {
             // 删除租户
-            redisUtils.del(getLoginCacheKey());
+            saTokenDao.deleteObject(StpUserUtil.getLoginId().toString());
         } finally {
             // 登出
             StpUserUtil.logout(StpUserUtil.getLoginId());
         }
         return R.ok();
-    }
-
-    /**
-     * 登录缓存key
-     * @return
-     */
-    private String getLoginCacheKey() {
-        return String.format("%s%s", CacheKey.USER_TENANT, StpUserUtil.getLoginId());
     }
 }

@@ -1,10 +1,8 @@
 package com.device.mbg.controller;
 
-import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.dao.SaTokenDao;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.device.common.constanst.CacheKey;
 import com.device.common.utils.R;
-import com.device.common.utils.RedisUtils;
 import com.device.mbg.auth.util.StpUserUtil;
 import com.device.mbg.domain.criteria.UserCriteria;
 import com.device.mbg.domain.dto.UserCreateParam;
@@ -36,7 +34,7 @@ public class UserController {
     @Autowired
     private IMenuService menuService;
     @Autowired
-    private RedisUtils redisUtils;
+    private SaTokenDao saTokenDao;
 
     @Operation(summary = "查询所有用户")
     @GetMapping(value = "/queryAll")
@@ -53,7 +51,7 @@ public class UserController {
     @Operation(summary = "获取用户信息")
     @GetMapping(value = "/getUserInfo")
     public R getUserInfo() {
-        UserInfo userInfo = (UserInfo) redisUtils.get(String.format("%s%s", CacheKey.USER_TENANT, StpUserUtil.getLoginId()));
+        UserInfo userInfo = (UserInfo) saTokenDao.getObject(StpUserUtil.getLoginId().toString());
         userInfo.setMenuList(menuService.treeListByUserId(StpUserUtil.getLoginId().toString()));
         return R.ok().data(userInfo);
     }

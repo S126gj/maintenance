@@ -113,7 +113,7 @@ springdoc:
         - com.device.file.controller
         - com.device.core.column.controller
         - com.device.core.core.controller
-        - com.device.core.staff.controller
+        - com.device.core.user.controller
         - com.device.core.customer.controller
 # knife4j
 knife4j:

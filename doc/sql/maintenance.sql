@@ -99,7 +99,8 @@ CREATE TABLE `sys_user`
 
 INSERT INTO `sys_user`
 VALUES ('1', @tenant_id, 'admin', '$2a$10$QSyoNvrANb9dHlwwz0eWDuiySeKSLkqMM5FXqMfYYw/eo.6GMkjRm', '123123123123', NULL,
-        NULL, NULL, NULL, 1, 1, now(), now());
+        NULL, NULL, 1, 1, now(),
+        now());
 
 DROP TABLE IF EXISTS sys_menu;
 CREATE TABLE `sys_menu`
@@ -130,13 +131,15 @@ INSERT INTO `sys_menu`
 VALUES ('11', '8', @tenant_id, '经销商管理', 10, 'DealerManagement', 'DealerManagement', 'el-icon-coordinate',
         '经销商管理', 0, 1, 'BasicInformation/DealerManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('12', '8', @tenant_id, '客户管理', 11, 'CustomerManagement', 'CustomerManagement', 'el-icon-user', '客户管理', 0,
+VALUES ('12', '8', @tenant_id, '客户管理', 11, 'CustomerManagement', 'CustomerManagement', 'el-icon-user', '客户管理',
+        0,
         1, 'BasicInformation/CustomerManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
 VALUES ('14', '8', @tenant_id, '角色管理', 13, 'Roles', 'Roles', 'el-icon-s-custom', '角色管理', 0, 1,
         'BasicInformation/Roles/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('15', '8', @tenant_id, '用户管理', 14, 'UserManagement', 'UserManagement', 'el-icon-user-solid', '用户管理', 0, 1,
+VALUES ('15', '8', @tenant_id, '用户管理', 14, 'UserManagement', 'UserManagement', 'el-icon-user-solid', '用户管理', 0,
+        1,
         'BasicInformation/UserManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
 VALUES ('16', '8', @tenant_id, '系统日志', 15, 'SystemLog', 'SystemLog', 'el-icon-date', '系统日志', 0, 1,
@@ -149,9 +152,11 @@ VALUES ('18', '8', '11', '文件信息', 17, 'FileInfo', 'FileInfo', 'el-icon-in
         'BasicInformation/FileInfo/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
 VALUES ('19', '8', @tenant_id, '配件管理', 18, 'AccessoryManagement', 'AccessoryManagement', 'el-icon-connection',
-        '配件管理', 0, 1, 'BasicInformation/AccessoryManagement/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
+        '配件管理', 0, 1, 'BasicInformation/AccessoryManagement/index', 0, '2023-06-29 15:03:00',
+        '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('2', '0', @tenant_id, '维修管理', 1, 'maintenance', '/maintenance', 'el-icon-s-help', '维修管理', 0, 0, 'Layout',
+VALUES ('2', '0', @tenant_id, '维修管理', 1, 'maintenance', '/maintenance', 'el-icon-s-help', '维修管理', 0, 0,
+        'Layout',
         0, '2023-06-29 09:35:01', '2023-06-29 09:35:01');
 INSERT INTO `sys_menu`
 VALUES ('20', '8', @tenant_id, '服务网点', 19, 'ServiceNetwork', 'ServiceNetwork', 'el-icon-position', '服务网点', 0, 1,
@@ -160,7 +165,8 @@ INSERT INTO `sys_menu`
 VALUES ('21', '8', @tenant_id, '服务人员', 20, 'ServiceStaff', 'ServiceStaff', 'el-icon-s-custom', '服务人员', 0, 1,
         'BasicInformation/ServiceStaff/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
-VALUES ('22', '8', @tenant_id, '字典管理', 21, 'DictionaryManaged', 'DictionaryManaged', 'el-icon-folder', '字典管理', 0,
+VALUES ('22', '8', @tenant_id, '字典管理', 21, 'DictionaryManaged', 'DictionaryManaged', 'el-icon-folder', '字典管理',
+        0,
         1, 'BasicInformation/DictionaryManaged/index', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
 VALUES ('3', '2', @tenant_id, '远程诊断', 2, 'RemoteDiagnosis', 'RemoteDiagnosis', 'el-icon-bell', '远程诊断', 0, 1,
@@ -178,7 +184,8 @@ INSERT INTO `sys_menu`
 VALUES ('7', '2', @tenant_id, '服务审核', 6, 'ServiceReview', 'ServiceReview', 'tree', '服务审核', 0, 1,
         'maintenance/ServiceReview/index', 0, '2023-06-29 09:35:01', '2023-06-29 09:35:01');
 INSERT INTO `sys_menu`
-VALUES ('8', '0', @tenant_id, '基础信息', 7, 'BasicInformation', '/BasicInformation', 'el-icon-reading', '基础信息', 0, 0,
+VALUES ('8', '0', @tenant_id, '基础信息', 7, 'BasicInformation', '/BasicInformation', 'el-icon-reading', '基础信息', 0,
+        0,
         'Layout', 0, '2023-06-29 15:03:00', '2023-06-29 15:03:00');
 INSERT INTO `sys_menu`
 VALUES ('9', '8', @tenant_id, '设备型号', 8, 'EquipmentModel', 'EquipmentModel', 'el-icon-info', '设备型号', 0, 1,
