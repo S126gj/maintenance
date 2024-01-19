@@ -354,6 +354,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
                 <version>${easy-excel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>poi-ooxml-schemas</artifactId>
+                        <groupId>org.apache.poi</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!--poi-->
             <dependency>
