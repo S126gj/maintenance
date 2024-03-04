@@ -86,7 +86,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 校验用户名是否重复
         checkUsername(user.getUsername());
         // 若密码为空则给默认密码
-        String password = StringUtil.isNotBlank(user.getPassword()) ? BCrypt.hashpw(user.getPassword()) : SecureUtil.md5(
+        String password = StringUtil.isNotBlank(user.getPassword()) ? BCrypt.hashpw(user.getPassword()) : BCrypt.hashpw(
             Constanst.DEFAULT_PASSWORD);
         user.setPassword(password);
         baseMapper.insert(user);
